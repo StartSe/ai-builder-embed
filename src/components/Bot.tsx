@@ -14,7 +14,7 @@ import {
   TextInputTheme,
   UserMessageTheme,
 } from "@/features/bubble/types";
-import { Badge } from "./Badge";
+// import { Badge } from "./Badge";
 import socketIOClient from "socket.io-client";
 import { Popup } from "@/features/popup";
 
