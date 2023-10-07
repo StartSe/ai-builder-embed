@@ -1,6 +1,6 @@
 import { Show, onMount } from 'solid-js'
 import { Avatar } from '../avatars/Avatar'
-import { Marked } from '@ts-stack/markdown'
+// import { Marked } from '@ts-stack/markdown'
 
 type Props = {
   message: string
@@ -13,15 +13,15 @@ type Props = {
 const defaultBackgroundColor = '#f7f8ff'
 const defaultTextColor = '#303235'
 
-Marked.setOptions({ isNoP: true })
+// Marked.setOptions({ isNoP: true })
 
 export const BotBubble = (props: Props) => {
   let botMessageEl: HTMLDivElement | undefined
 
   onMount(() => {
     if (botMessageEl) {
-      botMessageEl.innerHTML = Marked.parse(props.message)
-    }
+      botMessageEl.innerHTML = props.message
+    } 
   })
 
   return (
