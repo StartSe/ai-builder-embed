@@ -13,12 +13,12 @@ import {
   BotMessageTheme,
   TextInputTheme,
   UserMessageTheme,
-} from "@/features/bubble/types";
+} from '@/features/bubble/types';
 import { Badge } from "./Badge";
 import socketIOClient from "socket.io-client";
 import { Popup } from "@/features/popup";
 
-type messageType = "apiMessage" | "userMessage" | "usermessagewaiting";
+type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting';
 
 export type MessageType = {
   message: string;
