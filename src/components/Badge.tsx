@@ -40,30 +40,56 @@ export const Badge = (props: Props) => {
     if (observer) observer.disconnect()
   })
 
-  return (
-    <span style={{
-      "font-size": '13px',
-      position: 'absolute',
-      bottom: 0,
-      padding: '10px',
-      margin: 'auto',
-      width: '100%',
-      "text-align": 'center',
-      color: props.poweredByTextColor ?? defaultTextColor,
-      "background-color": props.badgeBackgroundColor ?? '#ffffff'
-    }}>
-      Powered by
-      <a
-        ref={liteBadge}
-        href={'https://www.startse.com/'}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="lite-badge"
-        id="lite-badge"
-        style={{ "font-weight": 'bold', color: props.poweredByTextColor ?? defaultTextColor }}
-      >
-        <span> StartSe</span>
-      </a>
-    </span>
-  )
+ return (
+   <span
+     style={{
+       "font-size": '13px',
+       position: 'absolute',
+       bottom: 0,
+       padding: '10px',
+       margin: 'auto',
+       width: '100%',
+       "text-align": 'center',
+       color: props.poweredByTextColor ?? defaultTextColor,
+       "background-color": props.badgeBackgroundColor ?? '#ffffff',
+       display: 'flex',
+       "justify-content": 'space-around',
+     }}
+   >
+     <span>
+       Powered by
+       <a
+         ref={liteBadge}
+         href={'https://www.startse.com/'}
+         target="_blank"
+         rel="noopener noreferrer"
+         class="lite-badge"
+         id="lite-badge"
+         style={{
+           "font-weight": 'bold',
+           color: props.poweredByTextColor ?? defaultTextColor,
+         }}
+       >
+         <span> StartSe</span>
+       </a>
+     </span>
+
+     <a
+       ref={liteBadge}
+       href={'https://forms.gle/KYeCx3PWUpozpMjQ9'}
+       target="_blank"
+       rel="noopener noreferrer"
+       class="lite-badge"
+       id="lite-badge"
+       style={{
+         "font-weight": 'bold',
+         color: props.poweredByTextColor ?? defaultTextColor,
+       }}
+     >
+       <span>Avalie o AI Chef</span>
+     </a>
+   </span>
+ );
+
+
 }
