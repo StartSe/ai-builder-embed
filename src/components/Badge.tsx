@@ -39,30 +39,30 @@ export const Badge = (props: Props) => {
  return (
    <span
      style={{
-       "font-size": '13px',
-       position: 'absolute',
+       "font-size": "13px",
+       position: "absolute",
        bottom: 0,
-       padding: '10px',
-       margin: 'auto',
-       width: '100%',
-       "text-align": 'center',
+       padding: "10px",
+       margin: "auto",
+       width: "100%",
+       "text-align": "center",
        color: props.poweredByTextColor ?? defaultTextColor,
-       "background-color": props.badgeBackgroundColor ?? '#ffffff',
-       display: 'flex',
-       "justify-content": 'space-around',
+       "background-color": props.badgeBackgroundColor ?? "#ffffff",
+       display: "flex",
+       "justify-content": "space-around",
      }}
    >
      <span>
        Powered by
        <a
          ref={liteBadge}
-         href={'https://www.startse.com/'}
+         href={"https://www.startse.com/"}
          target="_blank"
          rel="noopener noreferrer"
          class="lite-badge"
          id="lite-badge"
          style={{
-           "font-weight": 'bold',
+           "font-weight": "bold",
            color: props.poweredByTextColor ?? defaultTextColor,
          }}
        >
