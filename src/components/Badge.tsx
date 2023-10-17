@@ -68,7 +68,7 @@ return (
         style={{
           "font-weight": "bold",
           color: props.poweredByTextColor ?? defaultTextColor,
-          "margin-right": "3px",
+          "margin-left": "3px",
         }}
       >
         <span>StartSe</span>
