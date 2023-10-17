@@ -41,7 +41,6 @@ return (
   <span
     style={{
       "font-size": "13px",
-      position: "absolute",
       bottom: 0,
       padding: "10px 12px",
       margin: "auto",
