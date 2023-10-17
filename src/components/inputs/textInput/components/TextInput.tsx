@@ -46,7 +46,6 @@ export const TextInput = (props: Props) => {
             data-testid='input'
             style={{
                 'border-top': '1px solid #eeeeee',
-                position: 'absolute',
                 left: '20px',
                 right: '20px',
                 bottom: '75px',
