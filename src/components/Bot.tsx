@@ -343,9 +343,8 @@ export const Bot = (props: BotProps & { class?: string }) => {
         class={'relative flex w-full h-full text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container ' + props.class}>
         <div class="flex w-full h-full justify-center">
           <div
-            style={{ 'padding-bottom': '100px' }}
             ref={chatContainer}
-            class="overflow-y-scroll min-w-full w-full min-h-full px-3 pt-10 relative scrollable-container chatbot-chat-view scroll-smooth">
+            class="overflow-y-scroll min-w-full w-full min-h-full px-3 pt-20  pb-50 relative scrollable-container chatbot-chat-view scroll-smooth">
             <For each={[...messages()]}>
               {(message, index) => (
                 <>
@@ -400,22 +399,22 @@ export const Bot = (props: BotProps & { class?: string }) => {
               )}
             </For>
           </div>
+          <BottomSpacer ref={bottomSpacer} />
         </div>
-       
       </div>
-       <div class="sticky bottom-0 w-full pb-4 chatbot-container">
-          <TextInput
-            disabled={isReplying() || loading()}
-            backgroundColor={props.textInput?.backgroundColor}
-            textColor={props.textInput?.textColor}
-            placeholder={loading() ? 'Aguarde. Gerando resposta...' : props.textInput?.placeholder}
-            sendButtonColor={props.textInput?.sendButtonColor}
-            fontSize={props.fontSize}
-            defaultValue={userInput()}
-            onSubmit={handleSubmit}
-          />
-          <Badge badgeBackgroundColor={props.badgeBackgroundColor} poweredByTextColor={props.poweredByTextColor} botContainer={botContainer} />
-        </div>
+      <div class="sticky bottom-0 w-full chatbot-container">
+        <TextInput
+          disabled={isReplying() || loading()}
+          backgroundColor={props.textInput?.backgroundColor}
+          textColor={props.textInput?.textColor}
+          placeholder={loading() ? 'Aguarde. Gerando resposta...' : props.textInput?.placeholder}
+          sendButtonColor={props.textInput?.sendButtonColor}
+          fontSize={props.fontSize}
+          defaultValue={userInput()}
+          onSubmit={handleSubmit}
+        />
+        <Badge badgeBackgroundColor={props.badgeBackgroundColor} poweredByTextColor={props.poweredByTextColor} botContainer={botContainer} />
+      </div>
       {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
     </>
   );
