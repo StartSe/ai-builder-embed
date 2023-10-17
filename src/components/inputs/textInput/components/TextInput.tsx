@@ -10,6 +10,7 @@ type Props = {
     sendButtonColor?: string
     defaultValue?: string
     fontSize?: number
+    disabled?: boolean
     onSubmit: (value: string) => void
 }
 
@@ -57,6 +58,7 @@ export const TextInput = (props: Props) => {
             onKeyDown={submitWhenEnter}
         >
             <ShortTextInput
+                disabled={props.disabled}
                 ref={inputRef as HTMLInputElement}
                 onInput={handleInput}
                 value={inputValue()}
