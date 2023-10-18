@@ -1,6 +1,5 @@
 # AI Builder Embed
 
-- Este é o repositório privado do projeto AI Builder, forkado do projeto open source Flowise.
 
 ## Como Começar
 
