@@ -1,4 +1,4 @@
-# AI Builder
+# AI Builder Embed
 
 - Este é o repositório privado do projeto AI Builder, forkado do projeto open source Flowise.
 
@@ -7,7 +7,7 @@
 - Antes de tudo, adicionar o repositório original como upstream (Este comando deve ser utilizado somente na primeira vez por quem for fazer a atualização)
 
 ```bash
-git remote add upstream https://github.com/FlowiseAI/Flowise.git
+git remote add upstream https://github.com/StartSe/ai-builder
 ```
 
 
