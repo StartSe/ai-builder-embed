@@ -1,132 +1,31 @@
-<!-- markdownlint-disable MD030 -->
+# AI Builder
 
-# Flowise Embed
+- Este é o repositório privado do projeto AI Builder, forkado do projeto open source Flowise.
 
-Javascript library to display flowise chatbot on your website
+## Como Começar
 
-![Flowise](https://github.com/FlowiseAI/FlowiseChatEmbed/blob/main/images/ChatEmbed.gif?raw=true)
-
-Install:
+- Antes de tudo, adicionar o repositório original como upstream (Este comando deve ser utilizado somente na primeira vez por quem for fazer a atualização)
 
 ```bash
-yarn install
+git remote add upstream https://github.com/FlowiseAI/Flowise.git
 ```
 
-Dev:
 
+- A partir daqui, as branchs do AI Buildar já são privadas
+
+## Depois de configurado o ambiente anterior, certifique-se de estar na branch principal
 ```bash
-yarn dev
+git checkout main
 ```
 
-Build:
-
+## Atualize o fork
 ```bash
-yarn build
+git pull upstream main
 ```
 
-## Embed in your HTML
-
-### PopUp
-
-```html
-<script type="module">
-  import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
-  Chatbot.init({
-    chatflowid: "<chatflowid>",
-    apiHost: "http://localhost:3000",
-  });
-</script>
+## Envie as alterações para o AI Builder
+```bash
+git push private main
 ```
 
-### FullPage
-
-```html
-<script type="module">
-  import Chatbot from "./web.js";
-  Chatbot.initFull({
-    chatflowid: "<chatflowid>",
-    apiHost: "http://localhost:3000",
-  });
-</script>
-<flowise-fullchatbot></flowise-fullchatbot>
-```
-
-To enable full screen, add `margin: 0` to <code>body</code> style, and confirm you don't set height and width
-
-```html
-<body style="margin: 0">
-  <script type="module">
-    import Chatbot from "./web.js";
-    Chatbot.initFull({
-      chatflowid: "<chatflowid>",
-      apiHost: "http://localhost:3000",
-      theme: {
-        chatWindow: {
-          // height: 700, don't set height
-          // width: 400, don't set width
-        }
-      }
-  });
-  </script>
-</body>
-```
-
-## Configuration
-
-You can also customize chatbot with different configuration
-
-```html
-<script type="module">
-  import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
-  Chatbot.init({
-    chatflowid: "91e9c803-5169-4db9-8207-3c0915d71c5f",
-    apiHost: "http://localhost:3000",
-    chatflowConfig: {
-      // topK: 2
-    },
-    theme: {
-      button: {
-        backgroundColor: "#3B81F6",
-        right: 20,
-        bottom: 20,
-        size: "medium",
-        iconColor: "white",
-        customIconSrc:
-          "https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/google-messages.svg",
-      },
-      chatWindow: {
-        welcomeMessage: "Hello! This is custom welcome message",
-        backgroundColor: "#ffffff",
-        height: 700,
-        width: 400,
-        fontSize: 16,
-        poweredByTextColor: "#303235",
-        botMessage: {
-          backgroundColor: "#f7f8ff",
-          textColor: "#303235",
-          showAvatar: true,
-          avatarSrc:
-            "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/parroticon.png",
-        },
-        userMessage: {
-          backgroundColor: "#3B81F6",
-          textColor: "#ffffff",
-          showAvatar: true,
-          avatarSrc:
-            "https://raw.githubusercontent.com/zahidkhawaja/langchain-chat-nextjs/main/public/usericon.png",
-        },
-        textInput: {
-          placeholder: "Type your question",
-          backgroundColor: "#ffffff",
-          textColor: "#303235",
-          sendButtonColor: "#3B81F6",
-        },
-      },
-    },
-  });
-</script>
-```
-
-## License
-
-Source code in this repository is made available under the [MIT License](https://github.com/FlowiseAI/Flowise/blob/master/LICENSE.md).
+- O termo upstream é utilizado para referenciar o repositório original do qual você forkou o projeto. Se você forkou outro projeto no futuro, você precisará adicionar um novo controle remoto chamado upstream para esse novo projeto.
