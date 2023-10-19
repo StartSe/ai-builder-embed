@@ -7,7 +7,7 @@ type Props = {
   badgeBackgroundColor?: string
 }
 
-const defaultTextColor = '#303235'
+const defaultTextColor = '#196deb'
 
 export const Badge = (props: Props) => {
   let liteBadge: HTMLAnchorElement | undefined
@@ -53,7 +53,7 @@ return (
       color: props.poweredByTextColor ?? defaultTextColor,
       "background-color": props.badgeBackgroundColor ?? "#ffffff",
       display: "flex",
-      "justify-content": "space-between",
+      "justify-content": "center",
     }}
   >
     <span style={{ display: "flex", "align-items": "center" }}>
@@ -73,24 +73,6 @@ return (
         <span>StartSe</span>
       </a>
     </span>
-
-    <button
-      onClick={() => {
-        window.open("https://forms.gle/KYeCx3PWUpozpMjQ9", "_blank");
-      }}
-      style={{
-        border: "2px solid #303235",
-        "border-radius": "5px",
-        padding: "12.5px",
-        display: "flex",
-        "align-items": "center",
-        cursor: "pointer",
-      }}
-    >
-      <StarIcon />
-      <span
-        style={{ "margin-left": "5px" }}>Avalie o A.IChef</span>
-    </button>
   </span>
 );
 
