@@ -6,7 +6,7 @@
 - Antes de tudo, adicionar o repositório original como upstream (Este comando deve ser utilizado somente na primeira vez por quem for fazer a atualização)
 
 ```bash
-git remote add upstream https://github.com/StartSe/ai-builder
+git remote add upstream https://github.com/FlowiseAI/FlowiseChatEmbed
 ```
 
 
