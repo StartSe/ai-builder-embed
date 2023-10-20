@@ -45,6 +45,10 @@ export type BotProps = {
   fontSize?: number;
   isFullPage?: boolean;
   observersConfig?: observersConfigType;
+  showButton?: boolean;
+  buttonText?: string;
+  buttonColor?: string;
+  buttonLink?: string;
 };
 
 const defaultWelcomeMessage = 'Hi there! How can I help?';
