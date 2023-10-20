@@ -29,6 +29,10 @@ export type BotProps = {
   poweredByTextColor?: string;
   badgeBackgroundColor?: string;
   fontSize?: number;
+  showButton?: boolean;
+  buttonText?: string;
+  buttonColor?: string;
+  buttonLink?: string;
 };
 
 const defaultWelcomeMessage = 'Hi there! How can I help?';
