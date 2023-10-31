@@ -330,10 +330,10 @@ export const Bot = (props: BotProps & { class?: string }) => {
     message = handleVectaraMetadata(message);
 
     message.sourceDocuments.forEach((source: any) => {
-      if (isValidURL(source.metadata.source) && !visitedURLs.includes(source.metadata.source)) {
-        visitedURLs.push(source.metadata.source);
+      if (isValidURL(source.metadata.href) && !visitedURLs.includes(source.metadata.href)) {
+        visitedURLs.push(source.metadata.href);
         newSourceDocuments.push(source);
-      } else if (!isValidURL(source.metadata.source)) {
+      } else if (!isValidURL(source.metadata.href)) {
         newSourceDocuments.push(source);
       }
     });
@@ -380,20 +380,13 @@ export const Bot = (props: BotProps & { class?: string }) => {
                       }}>
                       <For each={[...removeDuplicateURL(message)]}>
                         {(src) => {
-                          const URL = isValidURL(src.metadata.source);
                           return (
+                            <a href={src.metadata.href} target='_blank'>
                             <SourceBubble
-                              pageContent={URL ? URL.pathname : src.pageContent}
+                              pageContent={src.metadata.titulo ? src.metadata.titulo : src.pageContent}
                               metadata={src.metadata}
-                              onSourceClick={() => {
-                                if (URL) {
-                                  window.open(src.metadata.source, '_blank');
-                                } else {
-                                  setSourcePopupSrc(src);
-                                  setSourcePopupOpen(true);
-                                }
-                              }}
                             />
+                            </a>
                           );
                         }}
                       </For>
