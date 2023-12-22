@@ -229,6 +229,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
         }
       } else {
         if (!isChatFlowAvailableToStream()) setMessages((prevMessages) => [...prevMessages, { message: data, type: 'apiMessage' }]);
+        else if (data.sourceDocuments) updateLastMessageSourceDocuments(data.sourceDocuments)
       }
       setLoading(false);
       setUserInput('');
