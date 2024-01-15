@@ -227,6 +227,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
             },
           ]);
         }
+        updateLastMessageSourceDocuments(data.sourceDocuments)
       } else {
         if (!isChatFlowAvailableToStream()) setMessages((prevMessages) => [...prevMessages, { message: data, type: 'apiMessage' }]);
         else if (data.sourceDocuments) updateLastMessageSourceDocuments(data.sourceDocuments)
@@ -309,7 +310,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
   };
 
   const handleVectaraMetadata = (message: any): any => {
-    if (message.sourceDocuments && message.sourceDocuments[0].metadata.length) {
+    if (message.sourceDocuments && message.sourceDocuments[0]?.metadata.length) {
       message.sourceDocuments = message.sourceDocuments.map((docs: any) => {
         const newMetadata: { [name: string]: any } = docs.metadata.reduce((newMetadata: any, metadata: any) => {
           newMetadata[metadata.name] = metadata.value;
@@ -341,6 +342,21 @@ export const Bot = (props: BotProps & { class?: string }) => {
     return newSourceDocuments;
   };
 
+  const showLoadingBubble = (message: any, index: any) => {
+    if (!loading() || index() !== messages().length - 1) return false;
+
+    switch (message.type) {
+      case 'userMessage':
+        return true;
+      case 'apiMessage':
+        return message.message?.length === 0;
+      default:
+        return false
+    }
+
+    message.type === 'userMessage' && index() === messages().length - 1
+  }
+
   return (
     <>
       <div
@@ -362,7 +378,8 @@ export const Bot = (props: BotProps & { class?: string }) => {
                       avatarSrc={props.userMessage?.avatarSrc}
                     />
                   )}
-                  {message.type === 'apiMessage' && (
+                  {message.type === 'apiMessage' &&
+                    message.message?.length > 1 ? (
                     <BotBubble
                       message={message.message}
                       backgroundColor={props.botMessage?.backgroundColor}
@@ -370,8 +387,11 @@ export const Bot = (props: BotProps & { class?: string }) => {
                       showAvatar={props.botMessage?.showAvatar}
                       avatarSrc={props.botMessage?.avatarSrc}
                     />
-                  )}
-                  {message.type === 'userMessage' && loading() && index() === messages().length - 1 && <LoadingBubble />}
+                  ) :
+                    (<></>)
+                  }
+
+                  {showLoadingBubble(message, index) && <LoadingBubble />}
                   {message.sourceDocuments && message.sourceDocuments.length && (
                     <div
                       style={{
@@ -383,10 +403,10 @@ export const Bot = (props: BotProps & { class?: string }) => {
                         {(src) => {
                           return (
                             <a href={src.metadata.href} target='_blank'>
-                            <SourceBubble
-                              pageContent={src.metadata.titulo ? src.metadata.titulo : src.pageContent}
-                              metadata={src.metadata}
-                            />
+                              <SourceBubble
+                                pageContent={src.metadata.titulo ? src.metadata.titulo : src.pageContent}
+                                metadata={src.metadata}
+                              />
                             </a>
                           );
                         }}
