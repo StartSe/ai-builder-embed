@@ -14,6 +14,7 @@
     "license": "MIT",
     "dependencies": {
         "@babel/core": "^7.22.1",
+        "@solid-primitives/upload": "^0.0.115",
         "@ts-stack/markdown": "^1.4.0",
         "lodash": "^4.17.21",
         "socket.io-client": "^4.6.2",

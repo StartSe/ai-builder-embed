@@ -1,5 +1,6 @@
 type BotProps = {
     chatflowid: string;
+    fileTextExtractionUrl?: string;
     apiHost?: string;
     chatflowConfig?: Record<string, unknown>;
 };

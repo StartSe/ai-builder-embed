@@ -1,18 +1,21 @@
-import { BotMessageTheme, TextInputTheme, UserMessageTheme } from '@/features/bubble/types';
-type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting';
+import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme } from '@/features/bubble/types';
+import { UploadFile } from '@solid-primitives/upload';
+type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
 export type MessageType = {
-    message: string;
+    message: string | UploadFile;
     type: messageType;
     sourceDocuments?: any;
 };
 export type BotProps = {
     chatflowid: string;
     apiHost?: string;
+    fileTextExtractionUrl?: string;
     chatflowConfig?: Record<string, unknown>;
     welcomeMessage?: string;
     botMessage?: BotMessageTheme;
     userMessage?: UserMessageTheme;
     textInput?: TextInputTheme;
+    buttonInput?: ButtonInputTheme;
     poweredByTextColor?: string;
     badgeBackgroundColor?: string;
     fontSize?: number;

@@ -14,6 +14,12 @@ export type TextInputTheme = {
     sendButtonColor?: string
 }
 
+export type ButtonInputTheme = {
+    backgroundColor?: string
+    textColor?: string
+    text?: string
+}
+
 export type UserMessageTheme = {
     backgroundColor?: string
     textColor?: string
@@ -37,6 +43,7 @@ export type ChatWindowTheme = {
     userMessage?: UserMessageTheme
     botMessage?: BotMessageTheme
     textInput?: TextInputTheme
+    buttonInput?: ButtonInputTheme
     poweredByTextColor?: string
 }
 
