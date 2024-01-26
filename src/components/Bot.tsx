@@ -43,7 +43,7 @@ type FilePreview = {
   type: string;
 };
 
-type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting';
+type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
 
 export type FileUpload = Omit<FilePreview, 'preview'>;
 
@@ -62,12 +62,14 @@ export type observersConfigType = Record<'observeUserInput' | 'observeLoading' |
 export type BotProps = {
   chatflowid: string;
   apiHost?: string;
+  fileTextExtractionUrl?: string;
   chatflowConfig?: Record<string, unknown>;
   welcomeMessage?: string;
   maxStarterPrompts?: number;
   botMessage?: BotMessageTheme;
   userMessage?: UserMessageTheme;
   textInput?: TextInputTheme;
+  buttonInput?: ButtonInputTheme;
   poweredByTextColor?: string;
   badgeBackgroundColor?: string;
   bubbleBackgroundColor?: string;
@@ -173,6 +175,9 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   let bottomSpacer: HTMLDivElement | undefined;
   let botContainer: HTMLDivElement | undefined;
 
+  const [fileText, setFileText] = createSignal<string>();
+  const [fileSended, setFileSended] = createSignal(false);
+  const [showModal, setShowModal] = createSignal(false);
   const [userInput, setUserInput] = createSignal('');
   const [loading, setLoading] = createSignal(false);
   const [sourcePopupOpen, setSourcePopupOpen] = createSignal(false);
@@ -294,7 +299,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   };
 
   // Handle form submission
-  const handleSubmit = async (value: string) => {
+  const handleSubmit = async (value: string, hidden = false) => {
     setUserInput(value);
 
     if (value.trim() === '') {
@@ -432,6 +437,14 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   createEffect(() => {
     if (props.fontSize && botContainer) botContainer.style.fontSize = `${props.fontSize}px`;
   });
+
+  createEffect(
+    on(fileText, (t, prevT) => {
+      if (fileSended() && t !== undefined && prevT === undefined) {
+        handleSubmit('resuma este laudo médico', true);
+      }
+    }),
+  );
 
   // eslint-disable-next-line solid/reactivity
   createEffect(async () => {

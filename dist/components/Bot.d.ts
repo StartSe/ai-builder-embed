@@ -34,12 +34,14 @@ export type observersConfigType = Record<'observeUserInput' | 'observeLoading' |
 export type BotProps = {
     chatflowid: string;
     apiHost?: string;
+    fileTextExtractionUrl?: string;
     chatflowConfig?: Record<string, unknown>;
     welcomeMessage?: string;
     maxStarterPrompts?: number;
     botMessage?: BotMessageTheme;
     userMessage?: UserMessageTheme;
     textInput?: TextInputTheme;
+    buttonInput?: ButtonInputTheme;
     poweredByTextColor?: string;
     badgeBackgroundColor?: string;
     bubbleBackgroundColor?: string;
