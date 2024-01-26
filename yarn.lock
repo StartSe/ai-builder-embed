@@ -496,6 +496,18 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
+"@solid-primitives/upload@^0.0.115":
+  version "0.0.115"
+  resolved "https://registry.yarnpkg.com/@solid-primitives/upload/-/upload-0.0.115.tgz#564de05707dd9df76ee9fd3c739605c1d58afba9"
+  integrity sha512-CWTXz28mmRGvZV90IzViNtBAKC6cnO2WSNb3UjvbkPRrtxlHrj/ewZwLRhuLSu6JzdY/c+rHi1j24v7H0SrdXg==
+  dependencies:
+    "@solid-primitives/utils" "^6.2.2"
+
+"@solid-primitives/utils@^6.2.2":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@solid-primitives/utils/-/utils-6.2.2.tgz#01c28bab7b2842b46bd5559716497decc51ad3cd"
+  integrity sha512-11ypVbp987XxETeRqY5Y3OmmTpm8/jZqJXRvo6AyqBthzkvvjEdReuUMU2yVb+pwWGxfZpWHZ6EUCcGXUMhfwg==
+
 "@trysound/sax@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@trysound/sax/-/sax-0.2.0.tgz#cccaab758af56761eb7bf37af6f03f326dd798ad"
