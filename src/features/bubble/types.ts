@@ -7,6 +7,11 @@ export type BubbleTheme = {
     button?: ButtonTheme
 }
 
+export type TextExtractionConfig = {
+    default: string
+    image: string
+}
+
 export type TextInputTheme = {
     backgroundColor?: string
     textColor?: string

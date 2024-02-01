@@ -1,4 +1,4 @@
-import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme } from '@/features/bubble/types';
+import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme, TextExtractionConfig } from '@/features/bubble/types';
 import { UploadFile } from '@solid-primitives/upload';
 type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
 export type MessageType = {
@@ -9,7 +9,7 @@ export type MessageType = {
 export type BotProps = {
     chatflowid: string;
     apiHost?: string;
-    fileTextExtractionUrl?: string;
+    fileTextExtractionUrl: TextExtractionConfig;
     chatflowConfig?: Record<string, unknown>;
     welcomeMessage?: string;
     botMessage?: BotMessageTheme;

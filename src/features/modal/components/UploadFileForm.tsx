@@ -9,7 +9,7 @@ type Props = {
 }
 
 export const UploadFileForm = (props: Props) => {
-    const { files, selectFiles } = createFileUploader({ accept: "application/pdf" });
+    const { files, selectFiles } = createFileUploader({ accept: "image/jpeg,image/gif,image/png,application/pdf,image/x-eps" });
 
     const onSubmit = (event: MouseEvent) => {
         event.preventDefault()
@@ -25,11 +25,12 @@ export const UploadFileForm = (props: Props) => {
             <input
                 type='file'
                 name="upload"
-                accept="application/pdf"
+                accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps"
                 multiple
                 onClick={(event) => {
                     event.preventDefault()
-                    selectFiles(files => files.forEach(file => console.log(file)));
+                    // eslint-disable-next-line @typescript-eslint/no-empty-function
+                    selectFiles(files => files.forEach(() => {}));
                   }}
             />
             <For each={files()}>{item => <p>{item.name}</p>}</For>
