@@ -34,7 +34,7 @@ export type observersConfigType = Record<'observeUserInput' | 'observeLoading' |
 export type BotProps = {
     chatflowid: string;
     apiHost?: string;
-    fileTextExtractionUrl?: string;
+    fileTextExtractionUrl: TextExtractionConfig;
     chatflowConfig?: Record<string, unknown>;
     welcomeMessage?: string;
     maxStarterPrompts?: number;

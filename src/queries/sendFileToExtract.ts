@@ -9,7 +9,7 @@ export type MessageRequest = {
     body: IncomingInput
 }
 
-export const sendFileToTextExtraction = async ({ extractUrl = 'localhost:3000', body }: MessageRequest) => {
+export const sendFileToTextExtraction = async ({ extractUrl = 'http://localhost:3000', body }: MessageRequest) => {
 
     const formData = new FormData()
     formData.append('files', body.files.file, body.files.name)
