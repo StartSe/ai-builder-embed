@@ -5,7 +5,7 @@ import { GuestBubble } from './bubbles/GuestBubble';
 import { BotBubble } from './bubbles/BotBubble';
 import { LoadingBubble } from './bubbles/LoadingBubble';
 import { SourceBubble } from './bubbles/SourceBubble';
-import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme } from '@/features/bubble/types';
+import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme, TextExtractionConfig } from '@/features/bubble/types';
 import { Badge } from './Badge';
 import socketIOClient from 'socket.io-client';
 import { Popup } from '@/features/popup';
@@ -16,6 +16,7 @@ import { UploadFile } from '@solid-primitives/upload';
 import { FileBubble } from './bubbles/FileBubble';
 import { sendFileToTextExtraction } from '@/queries/sendFileToExtract';
 import { LoadingFileBubble } from './bubbles/LoadingFileBubble';
+import { isImage } from '@/utils/isImage';
 
 type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
 
@@ -28,7 +29,7 @@ export type MessageType = {
 export type BotProps = {
   chatflowid: string;
   apiHost?: string;
-  fileTextExtractionUrl?: string;
+  fileTextExtractionUrl: TextExtractionConfig;
   chatflowConfig?: Record<string, unknown>;
   welcomeMessage?: string;
   botMessage?: BotMessageTheme;
@@ -293,7 +294,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
 
     const { text } = await sendFileToTextExtraction(
       {
-        extractUrl: props.fileTextExtractionUrl,
+        extractUrl: isImage(files[0].name) ? props.fileTextExtractionUrl.image : props.fileTextExtractionUrl.default,
         body: { files: files[0] }
       })
     if (!text) return;
