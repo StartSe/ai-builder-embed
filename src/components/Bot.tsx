@@ -304,6 +304,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
 
   return (
     <>
+    {fileSended() && <button onClick={() => {location.reload()}} class='header-button'>+ Laudo médico</button>}
       <div
         ref={botContainer}
         class={'relative flex w-full h-[calc(100vh-117px)] text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container ' + props.class}>
@@ -403,7 +404,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
             backgroundColor={props.buttonInput?.backgroundColor}
             textColor={props.buttonInput?.textColor}
             onSubmit={() => { setShowModal(true) }}
-          >Enviar Arquivo</Button>
+          >Enviar Laudo Médico</Button>
 
         )}
         <Badge badgeBackgroundColor={props.badgeBackgroundColor} poweredByTextColor={props.poweredByTextColor} botContainer={botContainer} />
