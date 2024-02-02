@@ -778,6 +778,16 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   return (
     <>
+      {fileSended() && (
+        <button
+          onClick={() => {
+            location.reload();
+          }}
+          class="header-button"
+        >
+          + Laudo médico
+        </button>
+      )}
       <div
         ref={botContainer}
         class={'relative flex w-full h-full text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container ' + props.class}
