@@ -776,6 +776,10 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }),
   );
 
+  const newMedicalReport = () => {
+    setShowModal(true);
+  };
+
   return (
     <>
       {fileSended() && (
