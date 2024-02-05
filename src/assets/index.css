@@ -230,6 +230,7 @@ textarea {
   min-width: 304px;
   max-width: 304px;
   gap: 6px;
+  border-radius: 0px 0px 5px 5px;
 }
 
 .chatbot-loading-icon-animation {
