@@ -193,8 +193,8 @@ export const Bot = (props: BotProps & { class?: string }) => {
     if (props.fontSize && botContainer) botContainer.style.fontSize = `${props.fontSize}px`;
   });
 
-  createEffect(on(fileText, (t, prevT) => {
-    if (fileSended() && t !== undefined && prevT === undefined) {
+  createEffect(on(fileText, (t) => {
+    if (fileSended() && t !== undefined) {
       handleSubmit('resuma este laudo médico', true)
     }
   }))
@@ -290,7 +290,12 @@ export const Bot = (props: BotProps & { class?: string }) => {
     setFileSended(true)
     setLoading(true)
     setShowModal(false)
-    setMessages((prevMessages) => [...prevMessages, { message: files[0], type: 'userFile' }]);
+    setMessages([
+      {
+        message: props.welcomeMessage ?? defaultWelcomeMessage,
+        type: 'apiMessage',
+      }, { message: files[0], type: 'userFile' }
+    ]);
 
     const { text } = await sendFileToTextExtraction(
       {
@@ -302,9 +307,13 @@ export const Bot = (props: BotProps & { class?: string }) => {
     setFileText(text)
   }
 
+  const newMedicalReport = () => {
+    setShowModal(true)
+  }
+
   return (
     <>
-    {fileSended() && <button onClick={() => {location.reload()}} class='header-button'>+ Laudo médico</button>}
+      {fileSended() && <button onClick={newMedicalReport} class='header-button'>+ Novo Laudo médico</button>}
       <div
         ref={botContainer}
         class={'relative flex w-full h-[calc(100vh-117px)] text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container ' + props.class}>
@@ -351,7 +360,7 @@ export const Bot = (props: BotProps & { class?: string }) => {
                       avatarSrc={props.botMessage?.avatarSrc}
                     />
                   )}
-                  
+
                   {message.sourceDocuments && message.sourceDocuments.length && (
                     <div
                       style={{
