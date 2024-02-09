@@ -11,6 +11,7 @@ declare const chatbot: {
         apiHost?: string | undefined;
         chatflowConfig?: Record<string, unknown> | undefined;
     }) => void;
+    initMenu: (props: import("./features/menu").MenuProps) => void;
 };
 export default chatbot;
 //# sourceMappingURL=web.d.ts.map
