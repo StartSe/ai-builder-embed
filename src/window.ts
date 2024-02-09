@@ -1,3 +1,5 @@
+import { MenuProps } from "./features/menu"
+
 /* eslint-disable solid/reactivity */
 type BotProps = {
     chatflowid: string
@@ -19,9 +21,16 @@ export const init = (props: BotProps) => {
     document.body.appendChild(element)
 }
 
+export const initMenu = (props: MenuProps) => {
+    const element = document.querySelector('flowise-menu')
+    if (!element) throw new Error('<flowise-fullchatbot> element not found.')
+    Object.assign(element, props)
+}
+
 type Chatbot = {
     initFull: typeof initFull
     init: typeof init
+    initMenu: typeof initMenu
 }
 
 declare const window:
@@ -32,7 +41,8 @@ declare const window:
 
 export const parseChatbot = () => ({
     initFull,
-    init
+    init,
+    initMenu
 })
 
 export const injectChatbotInWindow = (bot: Chatbot) => {
