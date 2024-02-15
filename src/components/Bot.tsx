@@ -6,6 +6,7 @@ import { GuestBubble } from './bubbles/GuestBubble';
 import { BotBubble } from './bubbles/BotBubble';
 import { LoadingBubble } from './bubbles/LoadingBubble';
 import { SourceBubble } from './bubbles/SourceBubble';
+
 import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
 import { BotMessageTheme, TextInputTheme, UserMessageTheme } from '@/features/bubble/types';
 import { Badge } from './Badge';
@@ -416,7 +417,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   const removeDuplicateURL = (message: MessageType) => {
     const visitedURLs: string[] = [];
     const newSourceDocuments: any = [];
-
     message.sourceDocuments.forEach((source: any) => {
       if (isValidURL(source.metadata.source) && !visitedURLs.includes(source.metadata.source)) {
         visitedURLs.push(source.metadata.source);
