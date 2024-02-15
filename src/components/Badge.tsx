@@ -44,10 +44,12 @@ export const Badge = (props: Props) => {
   return (
     <span
       style={{
+        position: 'absolute',
         'font-size': '13px',
-        bottom: 0,
+        bottom: '8px',
         padding: '10px 12px',
         margin: 'auto',
+        'margin-bottom': '8px',
         width: '100%',
         'text-align': 'center',
         color: props.poweredByTextColor ?? defaultTextColor,

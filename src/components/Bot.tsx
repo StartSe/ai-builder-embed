@@ -132,7 +132,7 @@ const defaultWelcomeMessage = 'Hi there! How can I help?';
 
 export const Bot = (botProps: BotProps & { class?: string }) => {
   // set a default value for showTitle if not set and merge with other props
-  const props = mergeProps({ showTitle: true }, botProps);
+  const props = mergeProps({ showTitle: false }, botProps);
   let chatContainer: HTMLDivElement | undefined;
   let bottomSpacer: HTMLDivElement | undefined;
   let botContainer: HTMLDivElement | undefined;
@@ -434,9 +434,9 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         ref={botContainer}
         class={'relative flex w-full h-full text-base overflow-hidden bg-cover bg-center flex-col items-center chatbot-container ' + props.class}
       >
-        <div class="flex w-full h-full justify-center">
+        <div class="flex w-full h-[calc(100vh-117px)] justify-center">
           <div
-            style={{ 'padding-bottom': '100px', 'padding-top': '70px' }}
+            style={{ 'padding-bottom': '100px', 'padding-top': '80px' }}
             ref={chatContainer}
             class="overflow-y-scroll min-w-full w-full min-h-[calc(100vh-117px)] px-3 pt-20 relative scrollable-container chatbot-chat-view scroll-smooth"
           >
@@ -539,7 +539,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
             defaultValue={userInput()}
             onSubmit={handleSubmit}
           />
-          <Badge badgeBackgroundColor={props.badgeBackgroundColor} poweredByTextColor={props.poweredByTextColor} botContainer={botContainer} />
         </div>
         <Show when={messages().length === 1}>
           <Show when={starterPrompts().length > 0}>
