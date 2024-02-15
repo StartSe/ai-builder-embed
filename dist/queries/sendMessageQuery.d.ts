@@ -4,9 +4,11 @@ export type IncomingInput = {
     history: MessageType[];
     overrideConfig?: Record<string, unknown>;
     socketIOClientId?: string;
+    chatId?: string;
+    fileName?: string;
 };
 export type MessageRequest = {
-    chatflowid: string;
+    chatflowid?: string;
     apiHost?: string;
     body?: IncomingInput;
 };
@@ -14,7 +16,15 @@ export declare const sendMessageQuery: ({ chatflowid, apiHost, body }: MessageRe
     data?: any;
     error?: Error | undefined;
 }>;
+export declare const getChatbotConfig: ({ chatflowid, apiHost }: MessageRequest) => Promise<{
+    data?: any;
+    error?: Error | undefined;
+}>;
 export declare const isStreamAvailableQuery: ({ chatflowid, apiHost }: MessageRequest) => Promise<{
+    data?: any;
+    error?: Error | undefined;
+}>;
+export declare const sendFileDownloadQuery: ({ apiHost, body }: MessageRequest) => Promise<{
     data?: any;
     error?: Error | undefined;
 }>;
