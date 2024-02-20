@@ -439,7 +439,7 @@ input {
 .tooltip {
   position: absolute;
   max-width: 300px;
-  top: 40px;
+  bottom: 45px;
   left: 30px;
   width: 300px; 
   filter: drop-shadow(4px 0px 5px rgba(67, 67, 67, 0.35));
@@ -447,6 +447,7 @@ input {
   border: 1px solid #CCC;
   background: #FAFAFA;
   padding: 16px;
+  z-index: 9999;
 }
 .tooltip p {
   overflow: hidden;
