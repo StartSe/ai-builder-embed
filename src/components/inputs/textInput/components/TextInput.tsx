@@ -57,7 +57,7 @@ export const TextInput = (props: Props) => {
         margin: 'auto',
         'z-index': 1000,
         'background-color': props.backgroundColor ?? defaultBackgroundColor,
-        color: props.textColor ?? defaultTextColor,
+        color: '#3c3c3b',
       }}
       onKeyDown={submitWhenEnter}
     >
