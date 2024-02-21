@@ -1,8 +1,10 @@
 import { MenuProps } from "./features/menu";
+import { observersConfigType } from './components/Bot';
 type BotProps = {
     chatflowid: string;
     apiHost?: string;
     chatflowConfig?: Record<string, unknown>;
+    observersConfig?: observersConfigType;
 };
 export declare const initFull: (props: BotProps & {
     id?: string;
