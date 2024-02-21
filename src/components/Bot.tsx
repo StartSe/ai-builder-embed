@@ -542,7 +542,17 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         </div>
         <Show when={messages().length === 1}>
           <Show when={starterPrompts().length > 0}>
-            <div style={{ display: 'flex', 'flex-direction': 'row', padding: '10px', width: '100%', 'flex-wrap': 'wrap' }}>
+            <div
+              style={{
+                display: 'flex',
+                'flex-direction': 'row',
+                padding: '10px',
+                width: '100%',
+                'flex-wrap': 'wrap',
+                position: 'absolute',
+                bottom: '106px',
+              }}
+            >
               <For each={[...starterPrompts()]}>{(key) => <StarterPromptBubble prompt={key} onPromptClick={() => promptClick(key)} />}</For>
             </div>
           </Show>
