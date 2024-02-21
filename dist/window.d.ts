@@ -1,4 +1,4 @@
-import { MenuProps } from "./features/menu";
+import { MenuProps } from './features/menu';
 import { observersConfigType } from './components/Bot';
 type BotProps = {
     chatflowid: string;
