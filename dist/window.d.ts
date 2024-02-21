@@ -4,6 +4,7 @@ type BotProps = {
     apiHost?: string;
     chatflowConfig?: Record<string, unknown>;
     observersConfig?: observersConfigType;
+    
 };
 export declare const initFull: (props: BotProps & {
     id?: string;
