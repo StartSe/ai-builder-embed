@@ -11,6 +11,7 @@ git remote add upstream https://github.com/FlowiseAI/FlowiseChatEmbed
 - A partir daqui, as branchs do AI Buildar já são privadas
 
 ## Depois de configurado o ambiente anterior, certifique-se de estar na branch principal
+
 ```bash
 git checkout main
 ```
