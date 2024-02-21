@@ -1,11 +1,13 @@
-import { MenuIcon } from "@/components/icons/MenuIcon"
+import { MenuIcon } from '@/components/icons/MenuIcon';
 
 interface MenuButtonProps {
-    onClick?: () => void;
+  onClick?: () => void;
 }
 
 export const MenuButton = (props: MenuButtonProps) => {
-    return <button onClick={() => props.onClick && props.onClick()}>
-        <MenuIcon />
+  return (
+    <button onClick={() => props.onClick && props.onClick()}>
+      <MenuIcon />
     </button>
-}
+  );
+};
