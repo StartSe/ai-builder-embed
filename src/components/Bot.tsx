@@ -332,21 +332,21 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   // eslint-disable-next-line solid/reactivity
   createEffect(async () => {
-    const chatMessage = localStorage.getItem(`${props.chatflowid}_EXTERNAL`);
-    if (chatMessage) {
-      const objChatMessage = JSON.parse(chatMessage);
-      setChatId(objChatMessage.chatId);
-      const loadedMessages = objChatMessage.chatHistory.map((message: MessageType) => {
-        const chatHistory: MessageType = {
-          message: message.message,
-          type: message.type,
-        };
-        if (message.sourceDocuments) chatHistory.sourceDocuments = message.sourceDocuments;
-        if (message.fileAnnotations) chatHistory.fileAnnotations = message.fileAnnotations;
-        return chatHistory;
-      });
-      setMessages([...loadedMessages]);
-    }
+    // const chatMessage = localStorage.getItem(`${props.chatflowid}_EXTERNAL`);
+    // if (chatMessage) {
+    //   const objChatMessage = JSON.parse(chatMessage);
+    //   setChatId(objChatMessage.chatId);
+    //   const loadedMessages = objChatMessage.chatHistory.map((message: MessageType) => {
+    //     const chatHistory: MessageType = {
+    //       message: message.message,
+    //       type: message.type,
+    //     };
+    //     if (message.sourceDocuments) chatHistory.sourceDocuments = message.sourceDocuments;
+    //     if (message.fileAnnotations) chatHistory.fileAnnotations = message.fileAnnotations;
+    //     return chatHistory;
+    //   });
+    //   setMessages([...loadedMessages]);
+    // }
 
     // Determine if particular chatflow is available for streaming
     const { data } = await isStreamAvailableQuery({
@@ -446,7 +446,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                   {message.type === 'userMessage' && (
                     <GuestBubble
                       message={message.message}
-                      backgroundColor={props.userMessage?.backgroundColor}
+                      backgroundColor={'#543885'}
                       textColor={props.userMessage?.textColor}
                       showAvatar={props.userMessage?.showAvatar}
                       avatarSrc={props.userMessage?.avatarSrc}
