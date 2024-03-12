@@ -468,20 +468,10 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                     <div style={{ display: 'flex', 'flex-direction': 'row', width: '100%' }}>
                       <For each={[...removeDuplicateURL(message)]}>
                         {(src) => {
-                          const URL = isValidURL(src.metadata.source);
                           return (
-                            <SourceBubble
-                              pageContent={URL ? URL.pathname : src.pageContent}
-                              metadata={src.metadata}
-                              onSourceClick={() => {
-                                if (URL) {
-                                  window.open(src.metadata.source, '_blank');
-                                } else {
-                                  setSourcePopupSrc(src);
-                                  setSourcePopupOpen(true);
-                                }
-                              }}
-                            />
+                            <a download={src.metadata.filename} href={src.metadata.downloadData}>
+                              <SourceBubble pageContent={src.metadata.titulo ? src.metadata.titulo : src.pageContent} metadata={src.metadata} />
+                            </a>
                           );
                         }}
                       </For>
