@@ -47,9 +47,7 @@ export const Badge = (props: Props) => {
         position: 'absolute',
         'font-size': '13px',
         bottom: '8px',
-        padding: '10px 12px',
         margin: 'auto',
-        'margin-bottom': '8px',
         width: '100%',
         'text-align': 'center',
         color: props.poweredByTextColor ?? defaultTextColor,
@@ -58,24 +56,6 @@ export const Badge = (props: Props) => {
         'justify-content': props.showButton ? 'space-between' : 'center',
       }}
     >
-      <span style={{ display: 'flex', 'align-items': 'center' }}>
-        Powered by
-        <a
-          href={'https://www.startse.com/'}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="lite-badge"
-          id="lite-badge"
-          style={{
-            'font-weight': 'bold',
-            color: props.poweredByTextColor ?? defaultTextColor,
-            'margin-left': '3px',
-          }}
-        >
-          <span>StartSe</span>
-        </a>
-      </span>
-
       {props.showButton && (
         <button
           onClick={() => {
