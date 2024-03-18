@@ -1,4 +1,4 @@
-import { createSignal, createEffect, For, onMount, Show, mergeProps, createMemo, Accessor } from 'solid-js';
+import { createSignal, createEffect, For, onMount, Show, mergeProps, createMemo } from 'solid-js';
 import { v4 as uuidv4 } from 'uuid';
 import { sendMessageQuery, isStreamAvailableQuery, IncomingInput, getChatbotConfig } from '@/queries/sendMessageQuery';
 import { TextInput } from './inputs/textInput';
@@ -436,10 +436,13 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       >
         <div class="flex w-full h-[calc(100vh-117px)] justify-center">
           <div
-            style={{ 'padding-bottom': '100px', 'padding-top': '80px' }}
+            style={{ padding: '16px 0' }}
             ref={chatContainer}
             class="overflow-y-scroll min-w-full w-full min-h-[calc(100vh-117px)] px-3 pt-20 relative scrollable-container chatbot-chat-view scroll-smooth"
           >
+            <h4 class="flex justify-center mb-2 text-center text-[#C4C6CF] font-[400]">
+              {new Date().toLocaleDateString() + ' - ' + new Date().toLocaleTimeString().slice(0, 5).concat('h (GMT-3)')}
+            </h4>
             <For each={[...messages()]}>
               {(message, index) => (
                 <>

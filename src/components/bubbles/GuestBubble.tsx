@@ -25,15 +25,18 @@ export const GuestBubble = (props: Props) => {
   });
 
   return (
-    <div class="flex justify-end mb-2 items-end guest-container" style={{ 'margin-left': '50px' }}>
-      <span
+    <div class="flex justify-end mb-2 items-start guest-container px-6 pr-4 py-4 gap-4">
+      <p
         ref={userMessageEl}
-        class="px-4 py-2 mr-2 whitespace-pre-wrap max-w-full chatbot-guest-bubble"
+        class="max-w-full justify-start items-start"
         data-testid="guest-bubble"
         style={{
+          'font-family': 'IBM Plex Sans',
+          'font-size': '14px',
+          'line-height': '16.8px',
+          'letter-spacing': '0.5px',
           'background-color': props.backgroundColor ?? defaultBackgroundColor,
           color: props.textColor ?? defaultTextColor,
-          'border-radius': '6px',
         }}
       />
       <Show when={props.showAvatar}>
