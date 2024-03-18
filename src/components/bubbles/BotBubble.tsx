@@ -65,14 +65,14 @@ export const BotBubble = (props: Props) => {
 
   return (
     <div class="flex justify-start mb-2 items-center bg-[#D5E3FF] py-4 px-6 gap-4">
-      <span class="mb-auto">
+      <span class="m-0 mb-auto">
         <Show when={props.showAvatar}>
           <Avatar initialAvatarSrc={props.avatarSrc} />
         </Show>
       </span>
       <p
         ref={botMessageEl}
-        class="max-w-full h-full"
+        class="max-w-full"
         data-testid="host-bubble"
         style={{
           'background-color': props.backgroundColor ?? defaultBackgroundColor,
