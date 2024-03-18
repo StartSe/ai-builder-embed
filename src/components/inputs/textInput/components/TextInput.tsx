@@ -1,6 +1,5 @@
 import { ShortTextInput } from './ShortTextInput';
-import { isMobile } from '@/utils/isMobileSignal';
-import { createSignal, createEffect, onMount } from 'solid-js';
+import { createSignal } from 'solid-js';
 import { SendButton } from '@/components/SendButton';
 
 type Props = {
@@ -31,18 +30,9 @@ export const TextInput = (props: Props) => {
   };
 
   const submitWhenEnter = (e: KeyboardEvent) => {
-    // Check if IME composition is in progress
     const isIMEComposition = e.isComposing || e.keyCode === 229;
     if (e.key === 'Enter' && !isIMEComposition) submit();
   };
-
-  createEffect(() => {
-    if (!props.disabled && !isMobile() && inputRef) inputRef.focus();
-  });
-
-  onMount(() => {
-    if (!isMobile() && inputRef) inputRef.focus();
-  });
 
   return (
     <div
