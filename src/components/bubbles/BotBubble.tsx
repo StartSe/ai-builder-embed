@@ -64,18 +64,21 @@ export const BotBubble = (props: Props) => {
   });
 
   return (
-    <div class="flex justify-start mb-2 items-start host-container" style={{ 'margin-right': '50px' }}>
+    <div class="flex justify-start mb-2 items-start bg-[#D5E3FF] py-4 px-6 gap-4">
       <Show when={props.showAvatar}>
         <Avatar initialAvatarSrc={props.avatarSrc} />
       </Show>
-      <span
+      <p
         ref={botMessageEl}
-        class="px-4 py-2 ml-2 max-w-full chatbot-host-bubble prose"
+        class="max-w-full"
         data-testid="host-bubble"
         style={{
           'background-color': props.backgroundColor ?? defaultBackgroundColor,
+          'font-family': 'IBM Plex Sans',
+          'font-size': '14px',
+          'line-height': '16.8px',
+          'letter-spacing': '0.5px',
           color: props.textColor ?? defaultTextColor,
-          'border-radius': '6px',
         }}
       />
     </div>
