@@ -47,34 +47,24 @@ pre {
   margin: 5px;
   width: auto;
   overflow: auto;
-  white-space: pre-wrap;
-  /* css-3 */
-  white-space: -moz-pre-wrap;
-  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;
-  /* Opera 4-6 */
-  white-space: -o-pre-wrap;
-  /* Opera 7 */
-  word-wrap: break-word;
-  /* Internet Explorer 5.5+ */
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
-
 .string {
   color: green;
 }
-
 .number {
   color: darkorange;
 }
-
 .boolean {
   color: blue;
 }
-
 .null {
   color: magenta;
 }
-
 .key {
   color: rgb(0, 43, 54);
 }
@@ -86,10 +76,8 @@ pre {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollable-container {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .text-fade-in {
@@ -97,7 +85,9 @@ pre {
 }
 
 .bubble-typing {
-  transition: width 400ms ease-out, height 400ms ease-out;
+  transition:
+    width 400ms ease-out,
+    height 400ms ease-out;
 }
 
 .bubble1,
@@ -125,11 +115,9 @@ pre {
   0% {
     transform: translateY(0);
   }
-
   50% {
     transform: translateY(-5px);
   }
-
   100% {
     transform: translateY(0);
   }
@@ -145,7 +133,7 @@ textarea {
   text-decoration: underline;
 }
 
-.slate-html-container>div {
+.slate-html-container > div {
   min-height: 24px;
 }
 
@@ -165,12 +153,10 @@ textarea {
   color: #9095a0 !important;
   opacity: 1 !important;
 }
-
 .text-input::-moz-placeholder {
   color: #9095a0 !important;
   opacity: 1 !important;
 }
-
 .text-input::placeholder {
   color: #9095a0 !important;
   opacity: 1 !important;
@@ -179,9 +165,25 @@ textarea {
 .chatbot-container {
   background-image: var(--chatbot-container-bg-image);
   background-color: var(--chatbot-container-bg-color);
-  font-family: 'Open Sans', -apple-system,
-    BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-family:
+    'Open Sans',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol';
+}
+
+.file-annotation-button {
+  color: var(--chatbot-button-color);
+  background-color: #02a0a0c2;
+  border: 1px solid #02a0a0c2;
+  border-radius: var(--chatbot-border-radius);
 }
 
 .chatbot-button {
@@ -202,7 +204,7 @@ textarea {
   background-color: #f7f8ff;
 }
 
-.chatbot-host-bubble>.bubble-typing {
+.chatbot-host-bubble > .bubble-typing {
   background-color: #f7f8ff;
   border: var(--chatbot-host-bubble-border);
   border-radius: 6px;
@@ -216,10 +218,94 @@ textarea {
 
 .chatbot-guest-bubble {
   color: var(--chatbot-guest-bubble-color);
-  background-color: #3B81F6;
+  background-color: #3b81f6;
   border-radius: 6px;
 }
 
+.chatbot-input {
+  color: #303235;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: var(--chatbot-border-radius);
+}
+
+.chatbot-input-error-message {
+  color: #303235;
+}
+
+.chatbot-button > .send-icon {
+  fill: var(--chatbot-button-color);
+}
+
+.chatbot-chat-view {
+  max-width: 800px;
+}
+
+.ping span {
+  background-color: #0042da;
+}
+
+.rating-icon-container svg {
+  width: 42px;
+  height: 42px;
+  stroke: #0042da;
+  fill: #f7f8ff;
+  transition: fill 100ms ease-out;
+}
+
+.rating-icon-container.selected svg {
+  fill: #0042da;
+}
+
+.rating-icon-container:hover svg {
+  filter: brightness(0.9);
+}
+
+.rating-icon-container:active svg {
+  filter: brightness(0.75);
+}
+
+.upload-progress-bar {
+  background-color: #0042da;
+  border-radius: var(--chatbot-border-radius);
+}
+
+.total-files-indicator {
+  background-color: #0042da;
+  color: var(--chatbot-button-color);
+  font-size: 10px;
+}
+
+.chatbot-upload-input {
+  transition: border-color 100ms ease-out;
+}
+
+.chatbot-upload-input.dragging-over {
+  border-color: #0042da;
+}
+
+.secondary-button {
+  background-color: #f7f8ff;
+  color: var(--chatbot-host-bubble-color);
+  border-radius: var(--chatbot-border-radius);
+}
+
+.chatbot-country-select {
+  color: #303235;
+  background-color: #ffffff;
+  border-radius: var(--chatbot-border-radius);
+}
+
+.chatbot-date-input {
+  color-scheme: light;
+  color: #303235;
+  background-color: #ffffff;
+  border-radius: var(--chatbot-border-radius);
+}
+
+.chatbot-popup-blocked-toast {
+  border-radius: var(--chatbot-border-radius);
+}
 .chatbot-file-bubble {
   font-family: "IBM Plex Sans";
   font-size: 12px;
@@ -293,86 +379,6 @@ textarea {
   font-weight: 700;
   line-height: normal;
 }
-
-.chatbot-input-error-message {
-  color: #303235;
-}
-
-.chatbot-button>.send-icon {
-  fill: var(--chatbot-button-color);
-}
-
-.chatbot-chat-view {
-  max-width: 800px;
-}
-
-.ping span {
-  background-color: #0042da;
-}
-
-.rating-icon-container svg {
-  width: 42px;
-  height: 42px;
-  stroke: #0042da;
-  fill: #f7f8ff;
-  transition: fill 100ms ease-out;
-}
-
-.rating-icon-container.selected svg {
-  fill: #0042da;
-}
-
-.rating-icon-container:hover svg {
-  filter: brightness(0.9);
-}
-
-.rating-icon-container:active svg {
-  filter: brightness(0.75);
-}
-
-.upload-progress-bar {
-  background-color: #0042da;
-  border-radius: var(--chatbot-border-radius);
-}
-
-.total-files-indicator {
-  background-color: #0042da;
-  color: var(--chatbot-button-color);
-  font-size: 10px;
-}
-
-.chatbot-upload-input {
-  transition: border-color 100ms ease-out;
-}
-
-.chatbot-upload-input.dragging-over {
-  border-color: #0042da;
-}
-
-.secondary-button {
-  background-color: #f7f8ff;
-  color: var(--chatbot-host-bubble-color);
-  border-radius: var(--chatbot-border-radius);
-}
-
-.chatbot-country-select {
-  color: #303235;
-  background-color: #ffffff;
-  border-radius: var(--chatbot-border-radius);
-}
-
-.chatbot-date-input {
-  color-scheme: light;
-  color: #303235;
-  background-color: #ffffff;
-  border-radius: var(--chatbot-border-radius);
-}
-
-.chatbot-popup-blocked-toast {
-  border-radius: var(--chatbot-border-radius);
-}
-
-
 .messagelist {
   width: 100%;
   height: 100%;
@@ -416,7 +422,6 @@ textarea {
   0% {
     background-position: -100% 0;
   }
-
   100% {
     background-position: 100% 0;
   }
@@ -431,7 +436,6 @@ textarea {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
