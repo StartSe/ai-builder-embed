@@ -1,4 +1,4 @@
-import { UploadFile } from "@solid-primitives/upload";
+import { UploadFile } from '@solid-primitives/upload';
 type Props = {
     file: UploadFile;
     onDelete: () => void;
