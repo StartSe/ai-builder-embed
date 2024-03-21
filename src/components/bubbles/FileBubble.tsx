@@ -1,9 +1,10 @@
-import { Show, onMount } from 'solid-js';
 import { Avatar } from '../avatars/Avatar';
 import { Marked } from '@ts-stack/markdown';
 import { UploadFile } from '@solid-primitives/upload';
 import { PdfIcon } from '../icons/PdfIcon';
 import { GlobalWorkerOptions, getDocument } from 'pdfjs-dist';
+import { Show, onMount, createMemo } from 'solid-js';
+import { ImageIcon } from '../icons/ImageIcon';
 
 type Props = {
   message: UploadFile;
@@ -50,6 +51,8 @@ export const FileBubble = (props: Props) => {
     }
   });
 
+  const icon = createMemo(() => (props.message.name.includes('.pdf') ? <PdfIcon /> : <ImageIcon />));
+
   return (
     <div class="flex flex-col justify-end mb-2 items-end guest-container" style={{ 'margin-left': '50px' }}>
       <canvas ref={el} class="mr-2" width={304} height={138} style={{ 'border-radius': '5px 5px 0px 0px' }} />
@@ -62,7 +65,7 @@ export const FileBubble = (props: Props) => {
         }}
       >
         {' '}
-        <PdfIcon /> {props.message.name}
+        {icon()} {props.message.name}
       </span>
       <Show when={props.showAvatar}>
         <Avatar initialAvatarSrc={props.avatarSrc} />
