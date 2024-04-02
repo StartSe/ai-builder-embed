@@ -49,12 +49,14 @@ export const Full = (props: FullProps, { element }: { element: HTMLElement }) =>
             welcomeMessage={props.theme?.chatWindow?.welcomeMessage}
             poweredByTextColor={props.theme?.chatWindow?.poweredByTextColor}
             textInput={props.theme?.chatWindow?.textInput}
+            buttonInput={props.theme?.chatWindow?.buttonInput}
             botMessage={props.theme?.chatWindow?.botMessage}
             userMessage={props.theme?.chatWindow?.userMessage}
             fontSize={props.theme?.chatWindow?.fontSize}
             chatflowid={props.chatflowid}
             chatflowConfig={props.chatflowConfig}
             apiHost={props.apiHost}
+            fileTextExtractionUrl={props.fileTextExtractionUrl}
             isFullPage={true}
             observersConfig={props.observersConfig}
           />

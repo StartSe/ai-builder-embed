@@ -4,9 +4,12 @@ import { MenuProps } from './features/menu';
 export const defaultBotProps: BubbleProps = {
   chatflowid: '',
   apiHost: undefined,
+  fileTextExtractionUrl: {
+    default: '',
+    image: '',
+  },
   chatflowConfig: undefined,
   theme: undefined,
-  observersConfig: undefined,
 };
 
 export const defaultMenuProps: MenuProps = {
