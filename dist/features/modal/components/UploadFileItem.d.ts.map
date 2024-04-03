@@ -1,0 +1,1 @@
+{"version":3,"file":"UploadFileItem.d.ts","sourceRoot":"","sources":["../../../../src/features/modal/components/UploadFileItem.tsx"],"names":[],"mappings":"AACA,OAAO,EAAE,UAAU,EAAE,MAAM,0BAA0B,CAAC;AAEtD,KAAK,KAAK,GAAG;IACX,IAAI,EAAE,UAAU,CAAC;IACjB,QAAQ,EAAE,MAAM,IAAI,CAAC;CACtB,CAAC;AAEF,eAAO,MAAM,cAAc,UAAW,KAAK,mCAS1C,CAAC"}

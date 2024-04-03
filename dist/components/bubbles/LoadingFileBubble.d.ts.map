@@ -1,0 +1,1 @@
+{"version":3,"file":"LoadingFileBubble.d.ts","sourceRoot":"","sources":["../../../src/components/bubbles/LoadingFileBubble.tsx"],"names":[],"mappings":"AAIA,KAAK,KAAK,GAAG;IACX,UAAU,CAAC,EAAE,OAAO,CAAC;IACrB,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,eAAe,CAAC,EAAE,MAAM,CAAC;IACzB,SAAS,CAAC,EAAE,MAAM,CAAC;IACnB,IAAI,CAAC,EAAE,MAAM,CAAC;CACf,CAAC;AAKF,eAAO,MAAM,iBAAiB,UAAW,KAAK,mCAsB7C,CAAC"}

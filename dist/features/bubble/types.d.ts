@@ -5,11 +5,21 @@ export type BubbleTheme = {
     chatWindow?: ChatWindowTheme;
     button?: ButtonTheme;
 };
+export type TextExtractionConfig = {
+    default: string;
+    audio?: string;
+    image?: string;
+};
 export type TextInputTheme = {
     backgroundColor?: string;
     textColor?: string;
     placeholder?: string;
     sendButtonColor?: string;
+};
+export type ButtonInputTheme = {
+    backgroundColor?: string;
+    textColor?: string;
+    text?: string;
 };
 export type UserMessageTheme = {
     backgroundColor?: string;
@@ -24,9 +34,6 @@ export type BotMessageTheme = {
     avatarSrc?: string;
 };
 export type ChatWindowTheme = {
-    showTitle?: boolean;
-    title?: string;
-    titleAvatarSrc?: string;
     welcomeMessage?: string;
     backgroundColor?: string;
     height?: number;
@@ -35,7 +42,11 @@ export type ChatWindowTheme = {
     userMessage?: UserMessageTheme;
     botMessage?: BotMessageTheme;
     textInput?: TextInputTheme;
+    buttonInput?: ButtonInputTheme;
     poweredByTextColor?: string;
+    showTitle?: boolean;
+    title?: string;
+    titleAvatarSrc?: string;
 };
 export type ButtonTheme = {
     size?: 'medium' | 'large';
