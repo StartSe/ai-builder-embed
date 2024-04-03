@@ -34,7 +34,10 @@ export type observersConfigType = Record<'observeUserInput' | 'observeLoading' |
 export type BotProps = {
     chatflowid: string;
     apiHost?: string;
-    fileTextExtractionUrl: TextExtractionConfig;
+    fileTextExtractionUrl?: TextExtractionConfig;
+    showInputFile?: boolean;
+    fileFirstQuestion?: string;
+    loadingFileMessage?: string;
     chatflowConfig?: Record<string, unknown>;
     welcomeMessage?: string;
     maxStarterPrompts?: number;
@@ -52,10 +55,6 @@ export type BotProps = {
     fontSize?: number;
     isFullPage?: boolean;
     observersConfig?: observersConfigType;
-    showButton?: boolean;
-    buttonText?: string;
-    buttonColor?: string;
-    buttonLink?: string;
 };
 export declare const Bot: (botProps: BotProps & {
     class?: string;

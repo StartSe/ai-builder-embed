@@ -59,6 +59,9 @@ export const Full = (props: FullProps, { element }: { element: HTMLElement }) =>
             apiHost={props.apiHost}
             isFullPage={true}
             observersConfig={props.observersConfig}
+            showInputFile={props.showInputFile}
+            fileFirstQuestion={props.fileFirstQuestion}
+            loadingFileMessage={props.loadingFileMessage}
           />
         </div>
       </Show>

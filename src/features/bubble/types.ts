@@ -8,9 +8,9 @@ export type BubbleTheme = {
 };
 
 export type TextExtractionConfig = {
-    default: string
-    image: string
-}
+  default: string;
+  image: string;
+};
 
 export type TextInputTheme = {
   backgroundColor?: string;
