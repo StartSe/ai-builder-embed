@@ -1,4 +1,4 @@
-import { ParentProps } from 'solid-js';
+import { ParentProps, onMount } from 'solid-js';
 
 type Props = ParentProps & {
   backgroundColor?: string;
@@ -11,6 +11,9 @@ const defaultBackgroundColor = '#ffffff';
 const defaultTextColor = '#303235';
 
 export const Button = (props: Props) => {
+  onMount(() => {
+    console.log('Button.tsx', props);
+  });
   return (
     <button
       class={'flex justify-center items-center upload-file-button'}

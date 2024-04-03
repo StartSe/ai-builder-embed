@@ -41,7 +41,10 @@ export type MessageType = {
 export type BotProps = {
   chatflowid: string;
   apiHost?: string;
-  fileTextExtractionUrl: TextExtractionConfig;
+  fileTextExtractionUrl?: TextExtractionConfig;
+  showInputFile?: boolean;
+  fileFirstQuestion?: string;
+  loadingFileMessage?: string;
   chatflowConfig?: Record<string, unknown>;
   welcomeMessage?: string;
   botMessage?: BotMessageTheme;
@@ -58,10 +61,6 @@ export type BotProps = {
   fontSize?: number;
   isFullPage?: boolean;
   observersConfig?: observersConfigType;
-  showButton?: boolean;
-  buttonText?: string;
-  buttonColor?: string;
-  buttonLink?: string;
 };
 
 const defaultWelcomeMessage = 'Hi there! How can I help?';
@@ -266,30 +265,13 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   createEffect(
     on(fileText, (t) => {
       if (fileSended() && t !== undefined) {
-        handleSubmit('resuma este laudo médico', true);
+        handleSubmit(props.fileFirstQuestion || '', true);
       }
     }),
   );
 
   // eslint-disable-next-line solid/reactivity
   createEffect(async () => {
-    // const chatMessage = localStorage.getItem(`${props.chatflowid}_EXTERNAL`);
-    // if (chatMessage) {
-    //   const objChatMessage = JSON.parse(chatMessage);
-    //   setChatId(objChatMessage.chatId);
-    //   const loadedMessages = objChatMessage.chatHistory.map((message: MessageType) => {
-    //     const chatHistory: MessageType = {
-    //       message: message.message,
-    //       type: message.type,
-    //     };
-    //     if (message.sourceDocuments) chatHistory.sourceDocuments = message.sourceDocuments;
-    //     if (message.fileAnnotations) chatHistory.fileAnnotations = message.fileAnnotations;
-    //     return chatHistory;
-    //   });
-    //   setMessages([...loadedMessages]);
-    // }
-
-    // Determine if particular chatflow is available for streaming
     const { data } = await isStreamAvailableQuery({
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
@@ -382,25 +364,18 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     ]);
 
     const { text } = await sendFileToTextExtraction({
-      extractUrl: isImage(files[0].name) ? props.fileTextExtractionUrl.image : props.fileTextExtractionUrl.default,
+      extractUrl: isImage(files[0].name) ? props.fileTextExtractionUrl?.image : props.fileTextExtractionUrl?.default,
       body: { files: files[0] },
     });
     if (!text) return;
 
     setFileText(text);
   };
-
-  const newMedicalReport = () => {
-    setShowModal(true);
-  };
+  // eslint-disable-next-line solid/reactivity
+  console.log('Bot.tsx', props.buttonInput);
 
   return (
     <>
-      {fileSended() && (
-        <button onClick={newMedicalReport} class="header-button">
-          + Novo Laudo médico
-        </button>
-      )}
       <div
         ref={botContainer}
         class={
@@ -453,6 +428,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                       textColor={props.botMessage?.textColor}
                       showAvatar={props.botMessage?.showAvatar}
                       avatarSrc={props.botMessage?.avatarSrc}
+                      text={props.loadingFileMessage}
                     />
                   )}
 
@@ -515,7 +491,17 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         </div>
       </div>
       <div class="chatbot-container p-4">
-        {fileSended() ? (
+        {props.showInputFile && !fileSended() ? (
+          <Button
+            backgroundColor={props.buttonInput?.backgroundColor}
+            textColor={props.buttonInput?.textColor}
+            onSubmit={() => {
+              setShowModal(true);
+            }}
+          >
+            {props.buttonInput?.text ?? 'Enviar arquivo'}
+          </Button>
+        ) : (
           <TextInput
             disabled={loading()}
             backgroundColor={props.textInput?.backgroundColor}
@@ -526,18 +512,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
             defaultValue={userInput()}
             onSubmit={handleSubmit}
           />
-        ) : (
-          <Button
-            backgroundColor={props.buttonInput?.backgroundColor}
-            textColor={props.buttonInput?.textColor}
-            onSubmit={() => {
-              setShowModal(true);
-            }}
-          >
-            Enviar Laudo Médico
-          </Button>
         )}
-        <Show when={messages().length === 3 && !loading()}>
+        <Show when={messages().length === 1 && !loading()}>
           <Show when={starterPrompts().length > 0}>
             <div
               style={{
@@ -559,7 +535,11 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
       {showModal() && (
         <Modal isOpen={showModal()} onClose={() => setShowModal(false)}>
-          <UploadFileForm onSubmit={onUploadFormSubmit} buttonInput={props.buttonInput} />
+          <UploadFileForm
+            onSubmit={onUploadFormSubmit}
+            buttonInput={props.buttonInput}
+            formats={['image/jpeg', 'image/gif', 'image/png', 'application/pdf', 'image/x-eps']}
+          />
         </Modal>
       )}
     </>

@@ -9,7 +9,8 @@ export type BubbleTheme = {
 
 export type TextExtractionConfig = {
   default: string;
-  image: string;
+  audio?: string;
+  image?: string;
 };
 
 export type TextInputTheme = {
