@@ -40,9 +40,22 @@ export const BotBubble = (props: Props) => {
     }
   };
 
+  const addBlankTargetToLinks = (message: string) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(message, 'text/html');
+    const links = doc.querySelectorAll('a:not([target="_blank"])');
+
+    links.forEach((link) => {
+      link.setAttribute('target', '_blank');
+    });
+
+    return doc.body.innerHTML;
+  };
+
   onMount(() => {
     if (botMessageEl) {
-      botMessageEl.innerHTML = Marked.parse(props.message);
+      const messageWithBlankTarget = addBlankTargetToLinks(props.message);
+      botMessageEl.innerHTML = Marked.parse(messageWithBlankTarget);
       if (props.fileAnnotations && props.fileAnnotations.length) {
         for (const annotations of props.fileAnnotations) {
           const button = document.createElement('button');

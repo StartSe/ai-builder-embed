@@ -18,9 +18,23 @@ Marked.setOptions({ isNoP: true });
 export const GuestBubble = (props: Props) => {
   let userMessageEl: HTMLDivElement | undefined;
 
+  const addBlankTargetToLinks = (message: string) => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(message, 'text/html');
+    const links = doc.querySelectorAll('a:not([target="_blank"])');
+
+    links.forEach((link) => {
+      link.setAttribute('target', '_blank');
+    });
+
+    return doc.body.innerHTML;
+  };
+
   onMount(() => {
     if (userMessageEl) {
-      userMessageEl.innerHTML = Marked.parse(props.message);
+      const parsedMessage = Marked.parse(props.message);
+      const messageWithBlankTarget = addBlankTargetToLinks(parsedMessage);
+      userMessageEl.innerHTML = messageWithBlankTarget;
     }
   });
 
