@@ -1,7 +1,20 @@
-import { Show, onMount } from 'solid-js';
+import { Show, onMount, createMemo } from 'solid-js';
 import { Avatar } from '../avatars/Avatar';
 import { Marked } from '@ts-stack/markdown';
 import { sendFileDownloadQuery } from '@/queries/sendMessageQuery';
+import { ButtonInputTheme } from '@/features/bubble/types';
+import { CheckIcon } from '../icons/CheckIcon';
+
+export type ActionButton = {
+  text: string;
+  clickedText: string;
+  clicked?: boolean;
+  action: {
+    href: string;
+    method: 'GET' | 'POST';
+    data: any;
+  };
+};
 
 type Props = {
   message: string;
@@ -11,6 +24,9 @@ type Props = {
   avatarSrc?: string;
   backgroundColor?: string;
   textColor?: string;
+  button?: ActionButton;
+  buttonTheme?: ButtonInputTheme;
+  onButtonClick?: () => void;
 };
 
 const defaultBackgroundColor = '#f7f8ff';
@@ -37,6 +53,12 @@ export const BotBubble = (props: Props) => {
       link.remove();
     } catch (error) {
       console.error('Download failed:', error);
+    }
+  };
+
+  const clickButtonAction = () => {
+    if (props.onButtonClick) {
+      props.onButtonClick();
     }
   };
 
@@ -69,7 +91,6 @@ export const BotBubble = (props: Props) => {
         <Avatar initialAvatarSrc={props.avatarSrc} />
       </Show>
       <span
-        ref={botMessageEl}
         class="px-4 py-2 ml-2 max-w-full chatbot-host-bubble prose"
         data-testid="host-bubble"
         style={{
@@ -77,7 +98,25 @@ export const BotBubble = (props: Props) => {
           color: props.textColor ?? defaultTextColor,
           'border-radius': '6px',
         }}
-      />
+      >
+        <span ref={botMessageEl} />
+        <Show when={props.button}>
+          <button
+            class="actionButton py-2 px-4 mt-4 mb-2 justify-center rounded gap-3 w-full font-semibold text-white focus:outline-none flex items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:brightness-100 transition-all filter hover:brightness-90 active:brightness-75"
+            style={{
+              'background-color': props.buttonTheme?.backgroundColor,
+              color: props.buttonTheme?.textColor,
+            }}
+            disabled={props.button?.clicked}
+            onClick={clickButtonAction}
+          >
+            <Show when={props.button?.clicked}>
+              <CheckIcon />
+            </Show>
+            {props.button?.clicked ? props.button.clickedText : props.button?.text}
+          </button>
+        </Show>
+      </span>
     </div>
   );
 };
