@@ -25,6 +25,7 @@ export type MessageType = {
     messageId?: string;
     message: string;
     type: messageType;
+    button?: ActionButton;
     sourceDocuments?: any;
     fileAnnotations?: any;
     fileUploads?: Partial<FileUpload>[];
