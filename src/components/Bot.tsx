@@ -563,7 +563,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
           <UploadFileForm
             onSubmit={onUploadFormSubmit}
             buttonInput={props.buttonInput}
-            formats={['image/jpeg', 'image/gif', 'image/png', 'application/pdf', 'image/x-eps']}
+            formats={['text/plain']}
           />
         </Modal>
       )}
