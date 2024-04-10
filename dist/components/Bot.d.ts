@@ -1,3 +1,4 @@
+import { ActionButton } from './bubbles/BotBubble';
 import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme, TextExtractionConfig } from '@/features/bubble/types';
 import { UploadFile } from '@solid-primitives/upload';
 type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
@@ -6,6 +7,7 @@ export type observersConfigType = Record<'observeUserInput' | 'observeLoading' |
 export type MessageType = {
     message: string | UploadFile;
     type: messageType;
+    button?: ActionButton;
     sourceDocuments?: any;
     fileAnnotations?: any;
 };

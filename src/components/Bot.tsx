@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { getChatbotConfig } from '@/queries/sendMessageQuery';
 import { TextInput } from './inputs/textInput';
 import { GuestBubble } from './bubbles/GuestBubble';
-import { BotBubble } from './bubbles/BotBubble';
+import { ActionButton, BotBubble } from './bubbles/BotBubble';
 import { LoadingBubble } from './bubbles/LoadingBubble';
 import { SourceBubble } from './bubbles/SourceBubble';
 import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme, TextExtractionConfig } from '@/features/bubble/types';
@@ -24,6 +24,7 @@ import { isImage } from '@/utils/isImage';
 import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
 import { Avatar } from '@/components/avatars/Avatar';
 import { DeleteButton } from '@/components/SendButton';
+import { sendRequest } from '@/utils';
 
 type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
 
@@ -34,6 +35,7 @@ export type observersConfigType = Record<'observeUserInput' | 'observeLoading' |
 export type MessageType = {
   message: string | UploadFile;
   type: messageType;
+  button?: ActionButton;
   sourceDocuments?: any;
   fileAnnotations?: any;
 };
@@ -218,7 +220,13 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         setMessages((prevMessages) => {
           const messages: MessageType[] = [
             ...prevMessages,
-            { message: text, sourceDocuments: data?.sourceDocuments, fileAnnotations: data?.fileAnnotations, type: 'apiMessage' },
+            {
+              message: text,
+              sourceDocuments: data?.sourceDocuments,
+              fileAnnotations: data?.fileAnnotations,
+              type: 'apiMessage',
+              button: data?.button,
+            },
           ];
           return messages;
         });
@@ -371,8 +379,21 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     setFileText(text);
   };
-  // eslint-disable-next-line solid/reactivity
-  console.log('Bot.tsx', props.buttonInput);
+
+  const handleClickAction = (message: MessageType, index: number) => {
+    if (message.button && message.button.action) {
+      const { href, method, data } = message.button.action;
+      sendRequest({ url: href, method, body: data });
+    }
+    setMessages((prevMessages) => {
+      const newMessage = { ...message };
+      if (newMessage.button) newMessage.button.clicked = true;
+      const newMessages = [...prevMessages];
+
+      newMessages[index] = newMessage;
+      return newMessages;
+    });
+  };
 
   return (
     <>
@@ -404,6 +425,10 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
                   {message.type === 'apiMessage' && (
                     <BotBubble
                       message={message.message as string}
+                      button={message.button}
+                      buttonTheme={props.buttonInput}
+                      // eslint-disable-next-line solid/reactivity
+                      onButtonClick={() => handleClickAction(message, index())}
                       fileAnnotations={message.fileAnnotations}
                       apiHost={props.apiHost}
                       backgroundColor={props.botMessage?.backgroundColor}
