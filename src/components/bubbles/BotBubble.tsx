@@ -54,8 +54,9 @@ export const BotBubble = (props: Props) => {
 
   onMount(() => {
     if (botMessageEl) {
-      const messageWithBlankTarget = addBlankTargetToLinks(props.message);
-      botMessageEl.innerHTML = Marked.parse(messageWithBlankTarget);
+      const parsedMessage = Marked.parse(props.message);
+      const messageWithBlankTarget = addBlankTargetToLinks(parsedMessage);
+      botMessageEl.innerHTML = messageWithBlankTarget;
       if (props.fileAnnotations && props.fileAnnotations.length) {
         for (const annotations of props.fileAnnotations) {
           const button = document.createElement('button');
