@@ -1,4 +1,4 @@
-import { Avatar } from "@/components/avatars/Avatar";
+import { Avatar } from '@/components/avatars/Avatar';
 
 export interface MenuItemProps {
   id: string;
