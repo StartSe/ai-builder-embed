@@ -359,6 +359,29 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     return newSourceDocuments;
   };
 
+  const getFileExtension = (fileName: string) => {
+    return fileName.slice(fileName.lastIndexOf('.')).toLowerCase();
+  };
+
+  const determineExtractionUrl = (fileName: string, config: TextExtractionConfig) => {
+    const extension = getFileExtension(fileName); 
+    switch (extension) {
+      case '.pdf':
+        return config.pdf || config.default;
+      case '.docx':
+        return config.docx || config.default;
+      case '.jpg':
+      case '.jpeg':
+      case '.png':
+      case '.gif':
+        return config.image || config.default;
+      case '.mp3':
+      case '.wav':
+        return config.audio || config.default;
+      default:
+        return config.default;
+    }
+  };
   const onUploadFormSubmit = async (files: UploadFile[]) => {
     setFileSended(true);
     setLoading(true);
@@ -370,16 +393,20 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       },
       { message: files[0], type: 'userFile' },
     ]);
-
+    if (!props.fileTextExtractionUrl) {
+      return;
+    }
+    const fileTextExtractionUrl: TextExtractionConfig = props.fileTextExtractionUrl || {}; 
+    const extractUrl = determineExtractionUrl(files[0].name, fileTextExtractionUrl);
     const { text } = await sendFileToTextExtraction({
-      extractUrl: isImage(files[0].name) ? props.fileTextExtractionUrl?.image : props.fileTextExtractionUrl?.default,
+      extractUrl,
       body: { files: files[0] },
     });
     if (!text) return;
 
     setFileText(text);
   };
-
+  
   const handleClickAction = (message: MessageType, index: number) => {
     if (message.button && message.button.action) {
       const { href, method, data } = message.button.action;
@@ -560,11 +587,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
       {showModal() && (
         <Modal isOpen={showModal()} onClose={() => setShowModal(false)}>
-          <UploadFileForm
-            onSubmit={onUploadFormSubmit}
-            buttonInput={props.buttonInput}
-            formats={['text/plain']}
-          />
+          <UploadFileForm onSubmit={onUploadFormSubmit} buttonInput={props.buttonInput} formats={['application/pdf', 'text/plain', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']} />
         </Modal>
       )}
     </>

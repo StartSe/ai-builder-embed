@@ -58,7 +58,7 @@ export const UploadFileForm = (props: Props) => {
                   Escolha
                 </a>
               </h3>
-              <p>Formatos suportados: PDF</p>
+              <p>Formatos suportados: PDF, DOCX, TXT</p>
             </div>
           </div>
         </div>
