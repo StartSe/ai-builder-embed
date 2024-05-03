@@ -478,7 +478,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
           const getRandomInt = (max: number) => Math.floor(Math.random() * max);
           const randomIndexes: number[] = [];
           const maxPromptsAvailable = Object.keys(chatbotConfig.starterPrompts).length;
-          const maxPromptsNumber = botProps.maxStarterPrompts < maxPromptsAvailable ? botProps.maxStarterPrompts : maxPromptsAvailable;
+          const maxPromptsNumber = Math.min(botProps.maxStarterPrompts, maxPromptsAvailable);
 
           for (let i = 0; i < maxPromptsNumber; i++) {
             let randomIndex;
