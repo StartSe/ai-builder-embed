@@ -64,6 +64,7 @@ export type BotProps = {
   apiHost?: string;
   chatflowConfig?: Record<string, unknown>;
   welcomeMessage?: string;
+  maxStarterPrompts?: number;
   botMessage?: BotMessageTheme;
   userMessage?: UserMessageTheme;
   textInput?: TextInputTheme;
@@ -472,9 +473,31 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       const chatbotConfig = result.data;
       if (chatbotConfig.starterPrompts) {
         const prompts: string[] = [];
-        Object.getOwnPropertyNames(chatbotConfig.starterPrompts).forEach((key) => {
-          prompts.push(chatbotConfig.starterPrompts[key].prompt);
-        });
+
+        if (botProps.maxStarterPrompts) {
+          const getRandomInt = (max: number) => Math.floor(Math.random() * max);
+          const randomIndexes: number[] = [];
+          const maxPromptsAvailable = Object.keys(chatbotConfig.starterPrompts).length;
+          const maxPromptsNumber = Math.min(botProps.maxStarterPrompts, maxPromptsAvailable);
+
+          for (let i = 0; i < maxPromptsNumber; i++) {
+            let randomIndex;
+            do {
+              randomIndex = getRandomInt(maxPromptsAvailable);
+            } while (randomIndexes.includes(randomIndex));
+
+            randomIndexes.push(randomIndex);
+          }
+
+          for (const index of randomIndexes) {
+            prompts.push(chatbotConfig.starterPrompts[index].prompt);
+          }
+        } else {
+          Object.getOwnPropertyNames(chatbotConfig.starterPrompts).forEach((key) => {
+            prompts.push(chatbotConfig.starterPrompts[key].prompt);
+          });
+        }
+
         setStarterPrompts(prompts);
       }
       if (chatbotConfig.chatFeedback) {
