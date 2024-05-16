@@ -170,6 +170,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   // Handle form submission
   const handleSubmit = async (value: string, hidden = false) => {
+    
     setUserInput(value);
 
     if (value.trim() === '') {
@@ -188,7 +189,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         const messages: MessageType[] = [...prevMessages, { message: value, type: 'userMessage' }];
         return messages;
       });
-
+      console.log("valores que esta chegando",value,hidden)
     const body: IncomingInput = {
       question: value,
       history: messageList,
@@ -207,7 +208,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       apiHost: props.apiHost,
       body,
     });
-
+    console.log('Resultado da solicitação para o agente:', result);
     if (result.data) {
       const data = result.data;
       if (!isChatFlowAvailableToStream()) {
@@ -386,14 +387,75 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       body: { files: files[0] },
     });
     if (!text) return;
-
     setFileText(text);
   };
 
   const newMedicalReport = () => {
     setShowModal(true);
   };
-
+  
+  const uploadForQueryParams = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const laudoParam = urlParams.get('laudo');
+    if (laudoParam) {
+      console.log("Tem parâmetro 'laudo'");
+      try {
+        // Remover aspas extras se existirem
+        const cleanedURL = laudoParam.replace(/^"|"$/g, '');
+        const decodedURL = decodeURIComponent(cleanedURL);
+        console.log(`Baixando PDF da URL: ${decodedURL}`);
+        const response = await fetch(decodedURL);
+        if (!response.ok) throw new Error('Erro ao baixar o PDF');
+        // Verificar o tipo de conteúdo
+        const contentType = response.headers.get('content-type');
+        console.log('Tipo de conteúdo:', contentType);
+        if (!contentType || !contentType.includes('pdf')) {
+          throw new Error('O arquivo baixado não é um PDF');
+        }
+        const blob = await response.blob();
+        // Verificar o blob retornado
+        console.log('Blob do PDF:', blob);
+        // Verificar se o Blob contém dados esperados
+        if (blob.size === 0) {
+          throw new Error('O Blob está vazio');
+        }
+        const base64Data = await convertBlobToBase64(blob); // Converter para base64
+        // Log para verificar base64Data
+        console.log('Arquivo PDF em base64:', base64Data);
+        const file = new File([blob], 'document.pdf', { type: 'application/pdf' });
+        // Verificar o arquivo criado
+        console.log('Arquivo File criado:', file);
+        const { text } = await sendFileToTextExtraction({
+          extractUrl: props.fileTextExtractionUrl.default,
+          body: { files: { file, name: 'document.pdf' } } // Enviar o arquivo em formato File
+        });
+  
+        if (!text) return;
+        console.log("Texto extraído:", text);
+        
+        handleSubmit(text, true);
+        
+        console.log("esta passando aqui")
+      } catch (error) {
+        console.error("Erro ao processar o arquivo:", error);
+      }
+    } else {
+      console.log("Não tem parâmetro 'laudo'");
+    }
+  };
+  
+  // Função auxiliar para converter Blob para base64
+  const convertBlobToBase64 = (blob:any) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+  createEffect(() => {
+    uploadForQueryParams(); 
+  });
   return (
     <>
       {fileSended() && (
@@ -582,3 +644,5 @@ type BottomSpacerProps = {
 const BottomSpacer = (props: BottomSpacerProps) => {
   return <div ref={props.ref} class="w-full h-32" />;
 };
+
+

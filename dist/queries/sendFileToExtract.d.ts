@@ -4,7 +4,7 @@ export type IncomingInput = {
 };
 export type MessageRequest = {
     extractUrl?: string;
-    body: IncomingInput;
+    body: IncomingInput | any;
 };
 export declare const sendFileToTextExtraction: ({ extractUrl, body }: MessageRequest) => Promise<any>;
 //# sourceMappingURL=sendFileToExtract.d.ts.map

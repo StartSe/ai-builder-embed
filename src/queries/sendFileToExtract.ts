@@ -6,14 +6,14 @@ export type IncomingInput = {
 
 export type MessageRequest = {
   extractUrl?: string;
-  body: IncomingInput;
+  body: IncomingInput | any;
+  
 };
 
 export const sendFileToTextExtraction = async ({ extractUrl = 'http://localhost:3000', body }: MessageRequest) => {
   const formData = new FormData();
   formData.append('files', body.files.file, body.files.name);
   formData.append('question', '');
-
   const response = await fetch(extractUrl, {
     method: 'POST',
     body: formData,
