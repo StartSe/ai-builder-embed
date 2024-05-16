@@ -7,7 +7,6 @@ export type IncomingInput = {
 export type MessageRequest = {
   extractUrl?: string;
   body: IncomingInput | any;
-  
 };
 
 export const sendFileToTextExtraction = async ({ extractUrl = 'http://localhost:3000', body }: MessageRequest) => {

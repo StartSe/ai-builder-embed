@@ -20,10 +20,10 @@ import { FileBubble } from './bubbles/FileBubble';
 import { sendFileToTextExtraction } from '@/queries/sendFileToExtract';
 import { LoadingFileBubble } from './bubbles/LoadingFileBubble';
 import { isImage } from '@/utils/isImage';
-
 import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
 import { Avatar } from '@/components/avatars/Avatar';
 import { DeleteButton } from '@/components/SendButton';
+
 
 type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
 
@@ -170,9 +170,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
   // Handle form submission
   const handleSubmit = async (value: string, hidden = false) => {
-    
     setUserInput(value);
-
+   
     if (value.trim() === '') {
       return;
     }
@@ -183,13 +182,13 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     // Send user question and history to API
     const welcomeMessage = props.welcomeMessage ?? defaultWelcomeMessage;
     const messageList = messages().filter((msg) => msg.message !== welcomeMessage);
-
+    
     if (!hidden)
       setMessages((prevMessages) => {
         const messages: MessageType[] = [...prevMessages, { message: value, type: 'userMessage' }];
         return messages;
       });
-      console.log("valores que esta chegando",value,hidden)
+   
     const body: IncomingInput = {
       question: value,
       history: messageList,
@@ -201,6 +200,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     if (props.chatflowConfig) body.overrideConfig = props.chatflowConfig;
 
+
     if (isChatFlowAvailableToStream()) body.socketIOClientId = socketIOClientId();
 
     const result = await sendMessageQuery({
@@ -208,10 +208,11 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       apiHost: props.apiHost,
       body,
     });
-    console.log('Resultado da solicitação para o agente:', result);
+
     if (result.data) {
       const data = result.data;
       if (!isChatFlowAvailableToStream()) {
+       
         let text = '';
         if (data.text) text = data.text;
         else if (data.json) text = JSON.stringify(data.json, null, 2);
@@ -231,12 +232,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }
     if (result.error) {
       const error = result.error;
-      console.error(error);
       const err: any = error;
       const errorData = typeof err === 'string' ? err : err.response.data || `${err.response.status}: ${err.response.statusText}`;
       handleError(errorData);
       return;
     }
+    
   };
 
   const clearChat = () => {
@@ -295,8 +296,8 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
     });
-
     if (data) {
+      
       setIsChatFlowAvailableToStream(data?.isStreaming ?? false);
     }
 
@@ -321,10 +322,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     socket.on('connect', () => {
       setSocketIOClientId(socket.id);
+      uploadForQueryParams();
     });
 
     socket.on('start', () => {
       setMessages((prevMessages) => [...prevMessages, { message: '', type: 'apiMessage' }]);
+      
     });
 
     socket.on('sourceDocuments', updateLastMessageSourceDocuments);
@@ -393,69 +396,40 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
   const newMedicalReport = () => {
     setShowModal(true);
   };
-  
+
   const uploadForQueryParams = async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const laudoParam = urlParams.get('laudo');
     if (laudoParam) {
-      console.log("Tem parâmetro 'laudo'");
       try {
-        // Remover aspas extras se existirem
-        const cleanedURL = laudoParam.replace(/^"|"$/g, '');
-        const decodedURL = decodeURIComponent(cleanedURL);
-        console.log(`Baixando PDF da URL: ${decodedURL}`);
+        const cleanURL = laudoParam.replace(/^"|"$/g, '');
+        const decodedURL = decodeURIComponent(cleanURL);
         const response = await fetch(decodedURL);
         if (!response.ok) throw new Error('Erro ao baixar o PDF');
-        // Verificar o tipo de conteúdo
         const contentType = response.headers.get('content-type');
-        console.log('Tipo de conteúdo:', contentType);
         if (!contentType || !contentType.includes('pdf')) {
           throw new Error('O arquivo baixado não é um PDF');
         }
         const blob = await response.blob();
-        // Verificar o blob retornado
-        console.log('Blob do PDF:', blob);
-        // Verificar se o Blob contém dados esperados
         if (blob.size === 0) {
           throw new Error('O Blob está vazio');
         }
-        const base64Data = await convertBlobToBase64(blob); // Converter para base64
-        // Log para verificar base64Data
-        console.log('Arquivo PDF em base64:', base64Data);
-        const file = new File([blob], 'document.pdf', { type: 'application/pdf' });
-        // Verificar o arquivo criado
-        console.log('Arquivo File criado:', file);
-        const { text } = await sendFileToTextExtraction({
-          extractUrl: props.fileTextExtractionUrl.default,
-          body: { files: { file, name: 'document.pdf' } } // Enviar o arquivo em formato File
-        });
-  
-        if (!text) return;
-        console.log("Texto extraído:", text);
-        
-        handleSubmit(text, true);
-        
-        console.log("esta passando aqui")
+        const file = new File([blob], 'laudo.pdf', { type: 'application/pdf' });
+        const uploadFile: UploadFile = {
+          source: cleanURL,
+          name: file.name,
+          size: file.size,
+          file: file,
+        }
+        onUploadFormSubmit([uploadFile])
       } catch (error) {
-        console.error("Erro ao processar o arquivo:", error);
+        console.error('Erro ao processar o arquivo:', error);
       }
     } else {
       console.log("Não tem parâmetro 'laudo'");
     }
   };
-  
-  // Função auxiliar para converter Blob para base64
-  const convertBlobToBase64 = (blob:any) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(blob);
-    });
-  };
-  createEffect(() => {
-    uploadForQueryParams(); 
-  });
+
   return (
     <>
       {fileSended() && (
@@ -644,5 +618,3 @@ type BottomSpacerProps = {
 const BottomSpacer = (props: BottomSpacerProps) => {
   return <div ref={props.ref} class="w-full h-32" />;
 };
-
-
