@@ -24,7 +24,6 @@ import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
 import { Avatar } from '@/components/avatars/Avatar';
 import { DeleteButton } from '@/components/SendButton';
 
-
 type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
 
 type observerConfigType = (accessor: string | boolean | object | MessageType[]) => void;
@@ -153,7 +152,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     });
   };
 
-  // Handle errors
+
   const handleError = (message = 'Oops! There seems to be an error. Please try again.') => {
     setMessages((prevMessages) => {
       const messages: MessageType[] = [...prevMessages, { message, type: 'apiMessage' }];
@@ -168,10 +167,10 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     handleSubmit(prompt);
   };
 
-  // Handle form submission
+
   const handleSubmit = async (value: string, hidden = false) => {
     setUserInput(value);
-   
+
     if (value.trim() === '') {
       return;
     }
@@ -179,16 +178,16 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     setLoading(true);
     scrollToBottom();
 
-    // Send user question and history to API
+
     const welcomeMessage = props.welcomeMessage ?? defaultWelcomeMessage;
     const messageList = messages().filter((msg) => msg.message !== welcomeMessage);
-    
+
     if (!hidden)
       setMessages((prevMessages) => {
         const messages: MessageType[] = [...prevMessages, { message: value, type: 'userMessage' }];
         return messages;
       });
-   
+
     const body: IncomingInput = {
       question: value,
       history: messageList,
@@ -199,7 +198,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     };
 
     if (props.chatflowConfig) body.overrideConfig = props.chatflowConfig;
-
 
     if (isChatFlowAvailableToStream()) body.socketIOClientId = socketIOClientId();
 
@@ -212,7 +210,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     if (result.data) {
       const data = result.data;
       if (!isChatFlowAvailableToStream()) {
-       
         let text = '';
         if (data.text) text = data.text;
         else if (data.json) text = JSON.stringify(data.json, null, 2);
@@ -237,7 +234,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       handleError(errorData);
       return;
     }
-    
   };
 
   const clearChat = () => {
@@ -256,7 +252,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }
   };
 
-  // Auto scroll chat to bottom
+
   createEffect(() => {
     if (messages()) scrollToBottom();
   });
@@ -291,17 +287,16 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       setMessages([...loadedMessages]);
     }
 
-    // Determine if particular chatflow is available for streaming
+    
     const { data } = await isStreamAvailableQuery({
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
     });
     if (data) {
-      
       setIsChatFlowAvailableToStream(data?.isStreaming ?? false);
     }
 
-    // Get the chatbotConfig
+    
     const result = await getChatbotConfig({
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
@@ -327,7 +322,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     socket.on('start', () => {
       setMessages((prevMessages) => [...prevMessages, { message: '', type: 'apiMessage' }]);
-      
     });
 
     socket.on('sourceDocuments', updateLastMessageSourceDocuments);
@@ -420,14 +414,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
           name: file.name,
           size: file.size,
           file: file,
-        }
-        onUploadFormSubmit([uploadFile])
+        };
+        onUploadFormSubmit([uploadFile]);
       } catch (error) {
         console.error('Erro ao processar o arquivo:', error);
       }
-    } else {
-      console.log("Não tem parâmetro 'laudo'");
-    }
+    } 
   };
 
   return (
