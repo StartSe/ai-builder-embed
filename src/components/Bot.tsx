@@ -152,7 +152,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     });
   };
 
-
   const handleError = (message = 'Oops! There seems to be an error. Please try again.') => {
     setMessages((prevMessages) => {
       const messages: MessageType[] = [...prevMessages, { message, type: 'apiMessage' }];
@@ -167,7 +166,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     handleSubmit(prompt);
   };
 
-
   const handleSubmit = async (value: string, hidden = false) => {
     setUserInput(value);
 
@@ -177,7 +175,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     setLoading(true);
     scrollToBottom();
-
 
     const welcomeMessage = props.welcomeMessage ?? defaultWelcomeMessage;
     const messageList = messages().filter((msg) => msg.message !== welcomeMessage);
@@ -252,7 +249,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }
   };
 
-
   createEffect(() => {
     if (messages()) scrollToBottom();
   });
@@ -287,7 +283,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       setMessages([...loadedMessages]);
     }
 
-    
     const { data } = await isStreamAvailableQuery({
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
@@ -296,7 +291,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       setIsChatFlowAvailableToStream(data?.isStreaming ?? false);
     }
 
-    
     const result = await getChatbotConfig({
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
@@ -404,11 +398,12 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         if (!contentType || !contentType.includes('pdf')) {
           throw new Error('O arquivo baixado não é um PDF');
         }
+        const fileName = cleanURL.substring(cleanURL.lastIndexOf('/') + 1);
         const blob = await response.blob();
         if (blob.size === 0) {
           throw new Error('O Blob está vazio');
         }
-        const file = new File([blob], 'laudo.pdf', { type: 'application/pdf' });
+        const file = new File([blob], fileName, { type: 'application/pdf' });
         const uploadFile: UploadFile = {
           source: cleanURL,
           name: file.name,
@@ -419,7 +414,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       } catch (error) {
         console.error('Erro ao processar o arquivo:', error);
       }
-    } 
+    }
   };
 
   return (
