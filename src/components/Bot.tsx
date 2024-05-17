@@ -20,7 +20,6 @@ import { FileBubble } from './bubbles/FileBubble';
 import { sendFileToTextExtraction } from '@/queries/sendFileToExtract';
 import { LoadingFileBubble } from './bubbles/LoadingFileBubble';
 import { isImage } from '@/utils/isImage';
-
 import { StarterPromptBubble } from './bubbles/StarterPromptBubble';
 import { Avatar } from '@/components/avatars/Avatar';
 import { DeleteButton } from '@/components/SendButton';
@@ -153,7 +152,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     });
   };
 
-  // Handle errors
   const handleError = (message = 'Oops! There seems to be an error. Please try again.') => {
     setMessages((prevMessages) => {
       const messages: MessageType[] = [...prevMessages, { message, type: 'apiMessage' }];
@@ -168,7 +166,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     handleSubmit(prompt);
   };
 
-  // Handle form submission
   const handleSubmit = async (value: string, hidden = false) => {
     setUserInput(value);
 
@@ -179,7 +176,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     setLoading(true);
     scrollToBottom();
 
-    // Send user question and history to API
     const welcomeMessage = props.welcomeMessage ?? defaultWelcomeMessage;
     const messageList = messages().filter((msg) => msg.message !== welcomeMessage);
 
@@ -254,7 +250,6 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
     }
   };
 
-  // Auto scroll chat to bottom
   createEffect(() => {
     if (messages()) scrollToBottom();
   });
@@ -289,17 +284,14 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       setMessages([...loadedMessages]);
     }
 
-    // Determine if particular chatflow is available for streaming
     const { data } = await isStreamAvailableQuery({
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
     });
-
     if (data) {
       setIsChatFlowAvailableToStream(data?.isStreaming ?? false);
     }
 
-    // Get the chatbotConfig
     const result = await getChatbotConfig({
       chatflowid: props.chatflowid,
       apiHost: props.apiHost,
@@ -320,6 +312,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     socket.on('connect', () => {
       setSocketIOClientId(socket.id);
+      uploadForQueryParams();
     });
 
     socket.on('start', () => {
@@ -386,13 +379,47 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       body: { files: files[0] },
     });
     if (!text) return;
-
     setFileText(text);
   };
 
   const newMedicalReport = () => {
     setShowModal(true);
   };
+
+  const uploadForQueryParams = async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const laudoParam = urlParams.get('laudo');
+    if (laudoParam) {
+      try {
+        const cleanURL = laudoParam.replace(/^"|"$/g, '');
+        const decodedURL = decodeURIComponent(cleanURL);
+        const response = await fetch(decodedURL);
+        if (!response.ok) throw new Error('Erro ao baixar o arquivo');
+        const contentType = response.headers.get('content-type');
+        if (!contentType) throw new Error('Tipo de conteúdo desconhecido');
+        const allowedContentTypes = ['application/pdf', 'image/png', 'image/jpeg'];
+        if (!allowedContentTypes.some(type => contentType.includes(type))) {
+          throw new Error('O arquivo baixado não é um PDF, PNG ou JPEG');
+        }
+        const fileName = cleanURL.substring(cleanURL.lastIndexOf('/') + 1);
+        const blob = await response.blob();
+        if (blob.size === 0) {
+          throw new Error('O Blob está vazio');
+        }
+        const file = new File([blob], fileName, { type: contentType });
+        const uploadFile: UploadFile = {
+          source: cleanURL,
+          name: file.name,
+          size: file.size,
+          file: file,
+        };
+        onUploadFormSubmit([uploadFile]);
+      } catch (error) {
+        console.error('Erro ao processar o arquivo:', error);
+      }
+    }
+  };
+  
 
   return (
     <>
