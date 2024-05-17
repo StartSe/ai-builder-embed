@@ -394,17 +394,19 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
         const cleanURL = laudoParam.replace(/^"|"$/g, '');
         const decodedURL = decodeURIComponent(cleanURL);
         const response = await fetch(decodedURL);
-        if (!response.ok) throw new Error('Erro ao baixar o PDF');
+        if (!response.ok) throw new Error('Erro ao baixar o arquivo');
         const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('pdf')) {
-          throw new Error('O arquivo baixado não é um PDF');
+        if (!contentType) throw new Error('Tipo de conteúdo desconhecido');
+        const allowedContentTypes = ['application/pdf', 'image/png', 'image/jpeg'];
+        if (!allowedContentTypes.some(type => contentType.includes(type))) {
+          throw new Error('O arquivo baixado não é um PDF, PNG ou JPEG');
         }
         const fileName = cleanURL.substring(cleanURL.lastIndexOf('/') + 1);
         const blob = await response.blob();
         if (blob.size === 0) {
           throw new Error('O Blob está vazio');
         }
-        const file = new File([blob], fileName, { type: 'application/pdf' });
+        const file = new File([blob], fileName, { type: contentType });
         const uploadFile: UploadFile = {
           source: cleanURL,
           name: file.name,
@@ -417,6 +419,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       }
     }
   };
+  
 
   return (
     <>
