@@ -36,11 +36,7 @@ export type BotMessageTheme = {
     avatarSrc?: string;
 };
 export type ChatWindowTheme = {
-    showTitle?: boolean;
-    title?: string;
-    titleAvatarSrc?: string;
     welcomeMessage?: string;
-    maxStarterPrompts?: number;
     backgroundColor?: string;
     height?: number;
     width?: number;
@@ -50,6 +46,9 @@ export type ChatWindowTheme = {
     textInput?: TextInputTheme;
     buttonInput?: ButtonInputTheme;
     poweredByTextColor?: string;
+    showTitle?: boolean;
+    title?: string;
+    titleAvatarSrc?: string;
 };
 export type ButtonTheme = {
     size?: 'medium' | 'large';

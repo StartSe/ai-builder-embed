@@ -12,7 +12,7 @@ export type MessageRequest = {
 export const sendFileToTextExtraction = async ({ extractUrl = 'http://localhost:3000', body }: MessageRequest) => {
   const formData = new FormData();
   formData.append('files', body.files.file, body.files.name);
-  formData.append('question', '');
+  formData.append('question', ' ');
 
   const response = await fetch(extractUrl, {
     method: 'POST',

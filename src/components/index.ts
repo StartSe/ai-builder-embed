@@ -1,2 +1,2 @@
-export * from './buttons/SendButton';
+export * from './SendButton';
 export * from './TypingBubble';

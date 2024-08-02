@@ -1,5 +1,5 @@
 import { JSX, Show } from 'solid-js';
-import { Spinner } from './SendButton';
+import { Spinner } from '../SendButton';
 import { ClipboardIcon, ThumbsDownIcon, ThumbsUpIcon } from '../icons';
 
 type RatingButtonProps = {

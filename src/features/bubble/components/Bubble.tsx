@@ -1,4 +1,4 @@
-import { createSignal, Show, splitProps, onCleanup } from 'solid-js';
+import { createSignal, Show, splitProps } from 'solid-js';
 import styles from '../../../assets/index.css';
 import { BubbleButton } from './BubbleButton';
 import { BubbleParams } from '../types';
@@ -27,10 +27,6 @@ export const Bubble = (props: BubbleProps) => {
   const toggleBot = () => {
     isBotOpened() ? closeBot() : openBot();
   };
-
-  onCleanup(() => {
-    setIsBotStarted(false);
-  });
 
   return (
     <>
@@ -63,7 +59,6 @@ export const Bubble = (props: BubbleProps) => {
             title={bubbleProps.theme?.chatWindow?.title}
             titleAvatarSrc={bubbleProps.theme?.chatWindow?.titleAvatarSrc}
             welcomeMessage={bubbleProps.theme?.chatWindow?.welcomeMessage}
-            maxStarterPrompts={bubbleProps.theme?.chatWindow?.maxStarterPrompts}
             poweredByTextColor={bubbleProps.theme?.chatWindow?.poweredByTextColor}
             textInput={bubbleProps.theme?.chatWindow?.textInput}
             botMessage={bubbleProps.theme?.chatWindow?.botMessage}
@@ -73,6 +68,7 @@ export const Bubble = (props: BubbleProps) => {
             chatflowConfig={props.chatflowConfig}
             apiHost={props.apiHost}
             observersConfig={props.observersConfig}
+            fileTextExtractionUrl={props.fileTextExtractionUrl}
           />
         </Show>
       </div>

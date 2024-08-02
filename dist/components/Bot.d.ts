@@ -1,37 +1,16 @@
-import { BotMessageTheme, TextInputTheme, UserMessageTheme } from '@/features/bubble/types';
-export type FileEvent<T = EventTarget> = {
-    target: T;
-};
-type ImageUploadConstraits = {
-    fileTypes: string[];
-    maxUploadSize: number;
-};
-export type UploadsConfig = {
-    imgUploadSizeAndTypes: ImageUploadConstraits[];
-    isImageUploadAllowed: boolean;
-    isSpeechToTextEnabled: boolean;
-};
-type FilePreviewData = string | ArrayBuffer;
-type FilePreview = {
-    data: FilePreviewData;
-    mime: string;
-    name: string;
-    preview: string;
-    type: string;
-};
-type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting';
-export type FileUpload = Omit<FilePreview, 'preview'>;
+import { ActionButton } from './bubbles/BotBubble';
+import { BotMessageTheme, TextInputTheme, UserMessageTheme, ButtonInputTheme, TextExtractionConfig } from '@/features/bubble/types';
+import { UploadFile } from '@solid-primitives/upload';
+type messageType = 'apiMessage' | 'userMessage' | 'usermessagewaiting' | 'userFile';
+type observerConfigType = (accessor: string | boolean | object | MessageType[]) => void;
+export type observersConfigType = Record<'observeUserInput' | 'observeLoading' | 'observeMessages', observerConfigType>;
 export type MessageType = {
-    messageId?: string;
-    message: string;
+    message: string | UploadFile;
     type: messageType;
     button?: ActionButton;
     sourceDocuments?: any;
     fileAnnotations?: any;
-    fileUploads?: Partial<FileUpload>[];
 };
-type observerConfigType = (accessor: string | boolean | object | MessageType[]) => void;
-export type observersConfigType = Record<'observeUserInput' | 'observeLoading' | 'observeMessages', observerConfigType>;
 export type BotProps = {
     chatflowid: string;
     apiHost?: string;
@@ -41,7 +20,6 @@ export type BotProps = {
     loadingFileMessage?: string;
     chatflowConfig?: Record<string, unknown>;
     welcomeMessage?: string;
-    maxStarterPrompts?: number;
     botMessage?: BotMessageTheme;
     userMessage?: UserMessageTheme;
     textInput?: TextInputTheme;

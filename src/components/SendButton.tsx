@@ -1,6 +1,7 @@
 import { Show } from 'solid-js';
 import { JSX } from 'solid-js/jsx-runtime';
-import { DeleteIcon, SendIcon } from '../icons';
+import { SendIcon } from './icons';
+import { DeleteIcon } from './icons/DeleteIcon';
 
 type SendButtonProps = {
   sendButtonColor?: string;

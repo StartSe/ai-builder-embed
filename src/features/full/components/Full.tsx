@@ -47,7 +47,6 @@ export const Full = (props: FullProps, { element }: { element: HTMLElement }) =>
             title={props.theme?.chatWindow?.title}
             titleAvatarSrc={props.theme?.chatWindow?.titleAvatarSrc}
             welcomeMessage={props.theme?.chatWindow?.welcomeMessage}
-            maxStarterPrompts={props.theme?.chatWindow?.maxStarterPrompts}
             poweredByTextColor={props.theme?.chatWindow?.poweredByTextColor}
             textInput={props.theme?.chatWindow?.textInput}
             buttonInput={props.theme?.chatWindow?.buttonInput}
@@ -57,6 +56,7 @@ export const Full = (props: FullProps, { element }: { element: HTMLElement }) =>
             chatflowid={props.chatflowid}
             chatflowConfig={props.chatflowConfig}
             apiHost={props.apiHost}
+            fileTextExtractionUrl={props.fileTextExtractionUrl}
             isFullPage={true}
             observersConfig={props.observersConfig}
             showInputFile={props.showInputFile}

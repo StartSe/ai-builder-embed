@@ -1,14 +1,9 @@
-import { MessageType } from '../Bot';
 type Props = {
-    message: MessageType;
-    apiHost?: string;
-    chatflowid: string;
-    chatId: string;
+    message: string;
     showAvatar?: boolean;
     avatarSrc?: string;
     backgroundColor?: string;
     textColor?: string;
-    fontSize?: number;
 };
 export declare const GuestBubble: (props: Props) => import("solid-js").JSX.Element;
 export {};

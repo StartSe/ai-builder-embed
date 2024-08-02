@@ -7,6 +7,7 @@ type Props = {
   avatarSrc?: string;
   backgroundColor?: string;
   textColor?: string;
+  text?: string;
 };
 
 const defaultBackgroundColor = '#f7f8ff';
@@ -30,7 +31,7 @@ export const LoadingFileBubble = (props: Props) => {
         <div class="chatbot-loading-icon-animation">
           <LoadingIcon />
         </div>
-        Estamos quase lá! Por favor, aguarde enquanto preparamos o resumo do seu laudo médico...
+        {props.text || 'Estamos quase lá! Por favor, aguarde enquanto preparamos a sua resposta...'}
       </span>
     </div>
   );

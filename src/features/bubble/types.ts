@@ -9,7 +9,10 @@ export type BubbleTheme = {
 
 export type TextExtractionConfig = {
   default: string;
-  image: string;
+  audio?: string;
+  image?: string;
+  pdf?: string;
+  docx?: string;
 };
 
 export type TextInputTheme = {
@@ -40,11 +43,7 @@ export type BotMessageTheme = {
 };
 
 export type ChatWindowTheme = {
-  showTitle?: boolean;
-  title?: string;
-  titleAvatarSrc?: string;
   welcomeMessage?: string;
-  maxStarterPrompts?: number;
   backgroundColor?: string;
   height?: number;
   width?: number;
@@ -52,7 +51,11 @@ export type ChatWindowTheme = {
   userMessage?: UserMessageTheme;
   botMessage?: BotMessageTheme;
   textInput?: TextInputTheme;
+  buttonInput?: ButtonInputTheme;
   poweredByTextColor?: string;
+  showTitle?: boolean;
+  title?: string;
+  titleAvatarSrc?: string;
 };
 
 export type ButtonTheme = {

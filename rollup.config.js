@@ -54,6 +54,7 @@ const configs = [
     output: {
       file: 'dist/web.js',
       format: 'es',
+      inlineDynamicImports: true,
     },
   },
 ];
