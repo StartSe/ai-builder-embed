@@ -560,11 +560,7 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
       {sourcePopupOpen() && <Popup isOpen={sourcePopupOpen()} value={sourcePopupSrc()} onClose={() => setSourcePopupOpen(false)} />}
       {showModal() && (
         <Modal isOpen={showModal()} onClose={() => setShowModal(false)}>
-          <UploadFileForm
-            onSubmit={onUploadFormSubmit}
-            buttonInput={props.buttonInput}
-            formats={['text/plain']}
-          />
+          <UploadFileForm onSubmit={onUploadFormSubmit} buttonInput={props.buttonInput} formats={['text/plain']} />
         </Modal>
       )}
     </>

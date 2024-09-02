@@ -49,7 +49,7 @@ export const TextInput = (props: Props) => {
       class={'flex items-end justify-between chatbot-input'}
       data-testid="input"
       style={{
-        'border-top': '1px solid #eeeeee',
+        border: '1px solid #4818AC',
         position: 'absolute',
         left: '20px',
         right: '20px',
@@ -70,7 +70,7 @@ export const TextInput = (props: Props) => {
         placeholder={props.placeholder ?? 'Type your question'}
       />
       <SendButton
-        sendButtonColor={props.sendButtonColor}
+        sendButtonBorderColor={'#4818AC'}
         type="button"
         isDisabled={props.disabled || inputValue() === ''}
         class="my-2 ml-2"

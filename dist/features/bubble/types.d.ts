@@ -9,8 +9,6 @@ export type TextExtractionConfig = {
     default: string;
     audio?: string;
     image?: string;
-    pdf?: string;
-    docx?: string;
 };
 export type TextInputTheme = {
     backgroundColor?: string;

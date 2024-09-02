@@ -7,7 +7,7 @@ interface MenuButtonProps {
 export const MenuButton = (props: MenuButtonProps) => {
   return (
     <button onClick={() => props.onClick && props.onClick()}>
-      <MenuIcon />
+      <MenuIcon fill="#000000" />
     </button>
   );
 };
