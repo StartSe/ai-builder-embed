@@ -276,21 +276,21 @@ export const Bot = (botProps: BotProps & { class?: string }) => {
 
     if (result.data) {
       const data = result.data;
-      if (!isChatFlowAvailableToStream()) {
-        let text = '';
-        if (data.text) text = data.text;
-        else if (data.json) text = JSON.stringify(data.json, null, 2);
-        else text = JSON.stringify(data, null, 2);
 
-        setMessages((prevMessages) => {
-          const messages: MessageType[] = [
-            ...prevMessages,
-            { message: text, sourceDocuments: data?.sourceDocuments, fileAnnotations: data?.fileAnnotations, type: 'apiMessage' },
-          ];
-          addChatMessage(messages);
-          return messages;
-        });
-      }
+      let text = '';
+      if (data.text) text = data.text;
+      else if (data.json) text = JSON.stringify(data.json, null, 2);
+      else text = JSON.stringify(data, null, 2);
+
+      setMessages((prevMessages) => {
+        const messages: MessageType[] = [
+          ...prevMessages,
+          { message: text, sourceDocuments: data?.sourceDocuments, fileAnnotations: data?.fileAnnotations, type: 'apiMessage' },
+        ];
+        addChatMessage(messages);
+        return messages;
+      });
+
       setLoading(false);
       setUserInput('');
       scrollToBottom();
